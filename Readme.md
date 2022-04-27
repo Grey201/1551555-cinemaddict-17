@@ -1,7 +1,7 @@
 # Проект «Киноман»
 
 * Студент: [Sergey Legenchuk](https://up.htmlacademy.ru/ecmascript/17/user/1551555).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Андреев](https://htmlacademy.ru/profile/id812127).
 
 ---
 
