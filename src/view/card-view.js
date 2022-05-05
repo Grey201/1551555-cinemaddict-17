@@ -1,7 +1,7 @@
 import {createElement} from '../render.js';
 
 
-const createListTemplate = () => (
+const createFilmCardsTemplate = () => (
 
   `<article class="film-card">
         <a class="film-card__link">
@@ -105,13 +105,10 @@ const createListTemplate = () => (
     `
 );
 
-
-
-
-export default class ListView {
+export default class FilmCardView {
 
   getTemplate() {
-    return createListTemplate();
+    return createFilmCardsTemplate();
   }
   getElement() {
 
