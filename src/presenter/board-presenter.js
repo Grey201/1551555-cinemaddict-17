@@ -1,5 +1,5 @@
-import SortView from "../view/sort-view.js";
-import FilmCardView from "../view/card-view.js";
+import SortView from '../view/sort-view.js';
+import FilmCardView from '../view/card-view.js';
 import {
   FilmsBoardView,
   FilmsListView,
@@ -7,11 +7,11 @@ import {
   ContainerListExtraView,
   TitleTopRaitedView,
   TitleMostCommentedView,
-} from "../view/board-view.js";
-import ShowMoreButtonView from "../view/show-more-button-view.js";
-import FilmCardTopView from "../view/card-top-view.js";
-import FilmCardMostCommentedView from "../view/card-most-commented-view.js";
-import { render } from "../render.js";
+} from '../view/board-view.js';
+import ShowMoreButtonView from '../view/show-more-button-view.js';
+import FilmCardTopView from '../view/card-top-view.js';
+import FilmCardMostCommentedView from '../view/card-most-commented-view.js';
+import { render } from '../render.js';
 
 const CARDS_ON_START = 5;
 const EXTRA_CARDS_COUNT = 2;
