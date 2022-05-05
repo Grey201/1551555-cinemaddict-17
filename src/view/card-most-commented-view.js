@@ -1,7 +1,7 @@
-import {createElement} from '../render.js';
+import { createElement } from '../render.js';
 
-const createFilmCardMostCommentedTemplate = () => (
-        `<article class="film-card">
+const createFilmCardMostCommentedTemplate = () =>
+  `<article class="film-card">
           <a class="film-card__link">
             <h3 class="film-card__title">Santa Claus Conquers the Martians</h3>
             <p class="film-card__rating">2.3</p>
@@ -39,8 +39,7 @@ const createFilmCardMostCommentedTemplate = () => (
             <button class="film-card__controls-item film-card__controls-item--mark-as-watched" type="button">Mark as watched</button>
             <button class="film-card__controls-item film-card__controls-item--favorite" type="button">Mark as favorite</button>
           </div>
-        </article>`
-);
+        </article>`;
 
 export default class FilmCardMostCommentedView {
   getTemplate() {
