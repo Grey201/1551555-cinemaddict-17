@@ -1,10 +1,13 @@
 import { createElement } from '../render.js';
 
-const createMoviesInsideTemplate = () => '<p>130 291 movies inside</p>';
+const createFilmsListExtraTopTemplate = () =>(
+  `<section class="films-list films-list--extra">
+  <h2 class="films-list__title">Top rated</h2>
+  </section>`);
 
-export default class MoviesInsideView {
+ export default class FilmsListExtraTopView {
   getTemplate() {
-    return createMoviesInsideTemplate();
+    return createFilmsListExtraTopTemplate();
   }
 
   getElement() {
@@ -19,3 +22,4 @@ export default class MoviesInsideView {
     this.element = null;
   }
 }
+

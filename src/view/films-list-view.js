@@ -1,10 +1,10 @@
 import { createElement } from '../render.js';
 
-const createMoviesInsideTemplate = () => '<p>130 291 movies inside</p>';
+const сreateFilmsListTemplate = () => '<section class="films-list">';
 
-export default class MoviesInsideView {
+ export default class FilmsListView {
   getTemplate() {
-    return createMoviesInsideTemplate();
+    return сreateFilmsListTemplate();
   }
 
   getElement() {

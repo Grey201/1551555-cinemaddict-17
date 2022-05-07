@@ -1,16 +1,12 @@
 import SortView from '../view/sort-view.js';
 import FilmCardView from '../view/card-view.js';
-import {
-  FilmsBoardView,
-  FilmsListView,
-  FilmsListContainerView,
-  ContainerListExtraView,
-  TitleTopRaitedView,
-  TitleMostCommentedView,
-} from '../view/board-view.js';
+import FilmsView from '../view/films-view.js';
+import FilmsListView from '../view/films-list-view.js';
+import FilmsListContainerView from '../view/films-list-container-view.js';
+import FilmsListExtraTopView from '../view/films-list-extra-top-view.js';
+import FilmsListExtraMostCommentedView from '../view/films-list-extra-most-commented-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
-import FilmCardTopView from '../view/card-top-view.js';
-import FilmCardMostCommentedView from '../view/card-most-commented-view.js';
+
 import { render } from '../render.js';
 
 const CARDS_ON_START = 5;
@@ -18,51 +14,46 @@ const EXTRA_CARDS_COUNT = 2;
 
 export default class BoardPresenter {
   boardComponent = new SortView();
-  FilmsContainer = new FilmsBoardView();
-  FilmsList = new FilmsListView();
-  FilmsListContainer = new FilmsListContainerView();
-  ShowMoreButton = new ShowMoreButtonView();
-  ContainerListExtraTop = new ContainerListExtraView();
-  TitleTopRaited = new TitleTopRaitedView();
-  FilmsListContainerTop = new FilmsListContainerView();
-  ContainerListExtraMostCommented = new ContainerListExtraView();
-  TitleMostCommented = new TitleMostCommentedView();
-  FilmsListContainerMostCommented = new FilmsListContainerView();
+  filmsContainer = new FilmsView();
+  filmsList = new FilmsListView();
+  filmsListContainer = new FilmsListContainerView();
+  showMoreButton = new ShowMoreButtonView();
+  filmsListContainerTop = new FilmsListContainerView();
+  containerListExtraTop = new FilmsListExtraTopView();
+  containerListExtraMostCommented = new FilmsListExtraMostCommentedView();
+  filmsListContainerMostCommented = new FilmsListContainerView();
+
 
   init = (boardContainer) => {
     this.boardContainer = boardContainer;
     render(this.boardComponent, this.boardContainer);
-    render(this.FilmsContainer, this.boardContainer);
-    render(this.FilmsList, this.FilmsContainer.getElement());
-    render(this.FilmsListContainer, this.FilmsList.getElement());
+    render(this.filmsContainer, this.boardContainer);
+    render(this.filmsList, this.filmsContainer.getElement());
+    render(this.filmsListContainer, this.filmsList.getElement());
     for (let i = 0; i < CARDS_ON_START; i++) {
-      render(new FilmCardView(), this.FilmsListContainer.getElement());
+      render(new FilmCardView(), this.filmsListContainer.getElement());
     }
-    render(this.ShowMoreButton, this.FilmsList.getElement());
+    render(this.showMoreButton, this.filmsList.getElement());
 
-    render(this.ContainerListExtraTop, this.FilmsContainer.getElement());
-    render(this.TitleTopRaited, this.ContainerListExtraTop.getElement());
-    render(this.FilmsListContainerTop, this.ContainerListExtraTop.getElement());
+    render(this.containerListExtraTop, this.filmsContainer.getElement());
+    render(this.filmsListContainerTop, this.containerListExtraTop.getElement(), 'beforeend');
     for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
-      render(new FilmCardTopView(), this.FilmsListContainerTop.getElement());
+      render(new FilmCardView(), this.filmsListContainerTop.getElement());
     }
 
     render(
-      this.ContainerListExtraMostCommented,
-      this.FilmsContainer.getElement()
+      this.containerListExtraMostCommented,
+      this.filmsContainer.getElement()
     );
     render(
-      this.TitleMostCommented,
-      this.ContainerListExtraMostCommented.getElement()
+      this.filmsListContainerMostCommented,
+      this.containerListExtraMostCommented.getElement(), 'beforeend'
     );
-    render(
-      this.FilmsListContainerMostCommented,
-      this.ContainerListExtraMostCommented.getElement()
-    );
+
     for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
       render(
-        new FilmCardMostCommentedView(),
-        this.FilmsListContainerMostCommented.getElement()
+        new FilmCardView(),
+        this.filmsListContainerMostCommented.getElement()
       );
     }
   };
