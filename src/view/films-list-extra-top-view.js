@@ -5,7 +5,7 @@ const createFilmsListExtraTopTemplate = () =>(
   <h2 class="films-list__title">Top rated</h2>
   </section>`);
 
- export default class FilmsListExtraTopView {
+export default class FilmsListExtraTopView {
   getTemplate() {
     return createFilmsListExtraTopTemplate();
   }
@@ -22,4 +22,3 @@ const createFilmsListExtraTopTemplate = () =>(
     this.element = null;
   }
 }
-
