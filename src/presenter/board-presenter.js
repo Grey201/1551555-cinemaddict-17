@@ -24,14 +24,18 @@ export default class BoardPresenter {
   filmsListContainerMostCommented = new FilmsListContainerView();
 
 
-  init = (boardContainer) => {
+  init = (boardContainer, moviesModel) => {
     this.boardContainer = boardContainer;
+    this.moviesModel=moviesModel;
+    // this.boardTasks = [...this.tasksModel.getTasks()];
+    this.moviesBoard=[...this.moviesModel.getMovies()];
+    console.log(this.moviesBoard);
     render(this.boardComponent, this.boardContainer);
     render(this.filmsContainer, this.boardContainer);
     render(this.filmsList, this.filmsContainer.getElement());
     render(this.filmsListContainer, this.filmsList.getElement());
-    for (let i = 0; i < CARDS_ON_START; i++) {
-      render(new FilmCardView(), this.filmsListContainer.getElement());
+    for (let i = 0; i < this.moviesBoard.length; i++) {
+      render(new FilmCardView(this.moviesBoard[i]), this.filmsListContainer.getElement());
     }
     render(this.showMoreButton, this.filmsList.getElement());
 
