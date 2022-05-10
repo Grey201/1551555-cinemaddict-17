@@ -1,7 +1,7 @@
 import ProfileView from './view/profile-view.js';
 import FilterView from './view/filter-view.js';
 import PopupView from './view/popup-view.js';
-import MoviesInsideView from './view/footer-view.js';
+import MoviesInsideView from './view/movies-inside-view.js';
 import { render } from './render.js';
 import BoardPresenter from './presenter/board-presenter.js';
 
