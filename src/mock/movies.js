@@ -28,6 +28,7 @@ const generateComment = () => {
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     'Cras aliquet varius magna, non porta ligula feugiat eget.',
     'Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.',
+    'Interesting setting and a good cast',
   ];
   const randomIndex = getRandomInteger(0, comments.length - 1);
 
@@ -42,9 +43,9 @@ const generateEmotion = () => {
 
   return emotion[randomIndex];
 };
-const generateEDate = () => {
+const generateDate = () => {
   const date = [
-    '2019-05-11T16:12:32.554Z', '1963-07-22T16:08:32.554Z', '1974-02-15T16:08:32.554Z'
+    '2019-05-11T16:12:32.554Z', '1963-07-22T16:08:32.554Z', '1974-02-15T16:08:32.554Z, 2019-05-11T00:00:00.000Z'
 ];
   const randomIndex = getRandomInteger(0, date.length - 1);
 
@@ -119,24 +120,36 @@ const generateActor=()=>{
   const randomIndex = getRandomInteger(0, actors.length - 1);
 
   return actors[randomIndex];
-};
-
+}
+  const generateReleaseCountry=()=>{
+    const releaseCountry=['Finland', 'USA', 'Poland'];
+    const randomIndex = getRandomInteger(0, releaseCountry.length - 1);
+  
+    return releaseCountry[randomIndex];
+  };
+  const generateRuntime=()=>{
+    const runtime=['Finland', 'USA', 'Poland'];
+    const randomIndex = getRandomInteger(0, runtime.length - 1);
+  
+    return runtime[randomIndex];
+  };
+  
 
 //todo
 export const generateComments = () => ({
   id: generateId(),
   author: generateAuthor(),
   comment: generateComment(),
-  date: generateEDate(),
+  date: generateDate(),
   emotion: generateEmotion(),
 });
 
 export const generateMoves = () => ({
   //todo
   id: generateId(),
-  // comments: [
-  //   $Comment.id$, $Comment.id$
-  // ],
+  comments: [
+    // $Comment.id$, $Comment.id$
+  ],
   filmInfo: {
     title: generateTitle(),
     alternativeTitle: generateAlternativeTitle(),
@@ -147,17 +160,17 @@ export const generateMoves = () => ({
     writers: generateWriter(),
     actors: generateActor(),
     release: {
-      date: '2019-05-11T00:00:00.000Z',
-      releaseCountry: 'Finland',
+      date: generateDate(),
+      releaseCountry: generateReleaseCountry(),
     },
-    runtime: 77,
+    runtime: generateRuntime(),
     genre: ['Comedy'],
     description:
       'Oscar-winning film, a war drama about two young people, from the creators of timeless classic "Nu, Pogodi!" and "Alice in Wonderland", with the best fight scenes since Bruce Lee.',
   },
   userDetails: {
     watchlist: true,
-    alreadyWatched: true,
+    alreadyWatched: false,
     watchingDate: '2019-04-12T16:12:32.554Z',
     favorite: true,
   },

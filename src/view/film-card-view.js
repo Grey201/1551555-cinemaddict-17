@@ -3,15 +3,7 @@ import { createElement } from '../render.js';
 
 const createFilmCardsTemplate = (movie) =>{
   const {filmInfo, userDetails} = movie;
-  // сделать рефакторинг время видео 1:12
-const favoriteActiveClassName=userDetails.favorite ? 'film-card__controls-item--active' : '';
-const watchlistActiveClassName=userDetails.watchlist ? 'film-card__controls-item--active' : '';
-const alreadyWatchedActiveClassName=userDetails.alreadyWatched ? 'film-card__controls-item--active' :'';
-//  const isActiveClassName =(item)=>{
-//   const active=userDetails.item ? 'film-card__controls-item--active' : '';
-//  return active;
-//  }
-// console.log(isActiveClassName(favorite));
+ const getControlClassName =(option)=>option ? 'film-card__controls-item--active' : '';
 
   return (`<article class="film-card">
         <a class="film-card__link">
@@ -27,9 +19,9 @@ const alreadyWatchedActiveClassName=userDetails.alreadyWatched ? 'film-card__con
           <span class="film-card__comments">5 comments</span>
         </a>
         <div class="film-card__controls">
-          <button class="film-card__controls-item film-card__controls-item--add-to-watchlist ${watchlistActiveClassName}" type="button">Add to watchlist</button>
-          <button class="film-card__controls-item film-card__controls-item--mark-as-watched ${ alreadyWatchedActiveClassName}" type="button">Mark as watched</button>
-          <button class="film-card__controls-item film-card__controls-item--favorite ${favoriteActiveClassName}"  type="button">Mark as favorite</button>
+          <button class="film-card__controls-item film-card__controls-item--add-to-watchlist ${getControlClassName(userDetails.watchlist)}" type="button">Add to watchlist</button>
+          <button class="film-card__controls-item film-card__controls-item--mark-as-watched ${ getControlClassName(userDetails.alreadyWatched)}" type="button">Mark as watched</button>
+          <button class="film-card__controls-item film-card__controls-item--favorite ${getControlClassName(userDetails.favorite)}"  type="button">Mark as favorite</button>
         </div>
       </article>
     `);
