@@ -1,15 +1,15 @@
 import { getRandomInteger } from '../utils.js';
 
 //todo generate
-const generateId = () => {
-  const id = [
-    '001',
-    '002',
-    '003',
+const generateCommentsId = () => {
+  const CommentsId = [
+    '101',
+    '102',
+    '103',
   ];
-  const randomIndex = getRandomInteger(0, id.length - 1);
+  const randomIndex = getRandomInteger(0, CommentsId.length - 1);
 
-  return id[randomIndex];
+  return CommentsId[randomIndex];
 };
 
 const generateAuthor = () => {
@@ -38,21 +38,32 @@ const generateComment = () => {
 const generateEmotion = () => {
   const emotion = [
     'smile', 'sleeping', 'puke', 'angry'
-];
+  ];
   const randomIndex = getRandomInteger(0, emotion.length - 1);
 
   return emotion[randomIndex];
 };
+
 const generateDate = () => {
   const date = [
     '2019-05-11T16:12:32.554Z', '1963-07-22T16:08:32.554Z', '1974-02-15T16:08:32.554Z, 2019-05-11T00:00:00.000Z'
-];
+  ];
   const randomIndex = getRandomInteger(0, date.length - 1);
 
   return date[randomIndex];
 };
 
 ////
+const generateId = () => {
+  const id = [
+    '001',
+    '002',
+    '003',
+  ];
+  const randomIndex = getRandomInteger(0, id.length - 1);
+
+  return id[randomIndex];
+};
 
 const generateTitle = () => {
   const moviesTitle = [
@@ -120,24 +131,49 @@ const generateActor=()=>{
   const randomIndex = getRandomInteger(0, actors.length - 1);
 
   return actors[randomIndex];
-}
-  const generateReleaseCountry=()=>{
-    const releaseCountry=['Finland', 'USA', 'Poland'];
-    const randomIndex = getRandomInteger(0, releaseCountry.length - 1);
-  
-    return releaseCountry[randomIndex];
-  };
-  const generateRuntime=()=>{
-    const runtime=['Finland', 'USA', 'Poland'];
-    const randomIndex = getRandomInteger(0, runtime.length - 1);
-  
-    return runtime[randomIndex];
-  };
-  
+};
+
+const generateReleaseCountry=()=>{
+  const releaseCountry=['Finland', 'USA', 'Poland'];
+  const randomIndex = getRandomInteger(0, releaseCountry.length - 1);
+
+  return releaseCountry[randomIndex];
+};
+
+const generateRuntime=()=>{
+  const runtime=['Finland', 'USA', 'Poland'];
+  const randomIndex = getRandomInteger(0, runtime.length - 1);
+
+  return runtime[randomIndex];
+};
+
+const generateGenre=()=>{
+  const genre=['Comedy', 'Musical', 'Western', 'Drama'];
+  const randomIndex = getRandomInteger(0, genre.length - 1);
+
+  return genre[randomIndex];
+};
+
+const generateDescription=()=>{
+  const description=['Oscar-winning film, a war drama about two young people, from the creators of timeless classic "Nu, Pogodi!" and "Alice in Wonderland", with the best fight scenes since Bruce Lee.',
+    'Frankie Machine (Frank Sinatra) is released from the federal Narcotic Farm in Lexington, Kentucky with a set of drums and a new outlook on…',
+    'The Martians Momar ("Mom Martian") and Kimar ("King Martian") are worried that their children Girmar ("Girl Martian") and Bomar ("Boy Marti…'];
+  const randomIndex = getRandomInteger(0, description.length - 1);
+
+  return description[randomIndex];
+};
+
+
+const generateBoolean=()=>{
+  const boolean=[0, 1];
+  const randomIndex = getRandomInteger(0, boolean.length - 1);
+
+  return boolean[randomIndex];
+};
 
 //todo
 export const generateComments = () => ({
-  id: generateId(),
+  id: generateCommentsId(),
   author: generateAuthor(),
   comment: generateComment(),
   date: generateDate(),
@@ -148,7 +184,7 @@ export const generateMoves = () => ({
   //todo
   id: generateId(),
   comments: [
-    // $Comment.id$, $Comment.id$
+    generateCommentsId(), generateCommentsId()
   ],
   filmInfo: {
     title: generateTitle(),
@@ -157,22 +193,21 @@ export const generateMoves = () => ({
     poster: generatePoster(),
     ageRating: generateAgeRating(),
     director: generateDirector(),
-    writers: generateWriter(),
-    actors: generateActor(),
+    writers: [generateWriter()],
+    actors: [generateActor()],
     release: {
       date: generateDate(),
       releaseCountry: generateReleaseCountry(),
     },
     runtime: generateRuntime(),
-    genre: ['Comedy'],
-    description:
-      'Oscar-winning film, a war drama about two young people, from the creators of timeless classic "Nu, Pogodi!" and "Alice in Wonderland", with the best fight scenes since Bruce Lee.',
+    genre: [generateGenre()],
+    description: generateDescription(),
   },
   userDetails: {
-    watchlist: true,
-    alreadyWatched: false,
-    watchingDate: '2019-04-12T16:12:32.554Z',
-    favorite: true,
+    watchlist: generateBoolean(),
+    alreadyWatched: generateBoolean(),
+    watchingDate: generateDate(),
+    favorite: generateBoolean(),
   },
 });
 

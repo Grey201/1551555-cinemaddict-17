@@ -2,9 +2,11 @@ import { createElement } from '../render.js';
 import { humanizeMovieDueDate } from '../utils.js';
 
 // вернутся на шаг 2.4
-const createPopupTemplate = () =>
-// const {filmInfo} = movie;
-  (`<section class="film-details">
+const createPopupTemplate = (movie) =>{
+  
+    // const {filmInfo, userDetails} = movie;
+  // console.log(filmInfo);
+  return (`<section class="film-details">
 <form class="film-details__inner" action="" method="get">
   <div class="film-details__top-container">
     <div class="film-details__close">
@@ -168,6 +170,7 @@ const createPopupTemplate = () =>
   </div>
 </form>
 </section>`);
+};
 export default class PopupView {
   constructor (movie) {
     this.movie=movie;

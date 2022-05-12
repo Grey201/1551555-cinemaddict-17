@@ -18,4 +18,5 @@ render(new ProfileView(), siteHeaderElement);
 render(new FilterView(), siteMainElement);
 boardPresenter.init(siteMainElement, moviesModel);
 render(new MoviesInsideView(), filmsStatistic);
-// render(new PopupView(), siteFooterElement,RenderPosition.AFTEREND);
+render(new PopupView(), siteFooterElement,RenderPosition.AFTEREND);
+// console.log(PopupView(moviesModel));
