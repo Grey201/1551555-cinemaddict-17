@@ -6,7 +6,7 @@ import FilmsListContainerView from '../view/films-list-container-view.js';
 import FilmsListExtraTopView from '../view/films-list-extra-top-view.js';
 import FilmsListExtraMostCommentedView from '../view/films-list-extra-most-commented-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
-// import
+import PopupView from '../view/popup-view.js';
 
 import { render, RenderPosition} from '../render.js';
 
@@ -24,7 +24,7 @@ export default class BoardPresenter {
   filmsListContainerMostCommented = new FilmsListContainerView();
 
 
-  init = (boardContainer, moviesModel) => {
+  init = (boardContainer, moviesModel, siteFooterElement) => {
     this.boardContainer = boardContainer;
     this.moviesModel=moviesModel;
     this.movies=[...this.moviesModel.getMovies()];
@@ -61,5 +61,7 @@ export default class BoardPresenter {
         this.filmsListContainerMostCommented.getElement()
       );
     }
+    render(new PopupView(this.movies[0], this.comments), siteFooterElement, RenderPosition.AFTEREND);
   };
+
 }

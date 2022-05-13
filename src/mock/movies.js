@@ -6,6 +6,8 @@ const generateCommentsId = () => {
     '101',
     '102',
     '103',
+    '104',
+    '105'
   ];
   const randomIndex = getRandomInteger(0, CommentsId.length - 1);
 
@@ -29,6 +31,7 @@ const generateComment = () => {
     'Cras aliquet varius magna, non porta ligula feugiat eget.',
     'Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.',
     'Interesting setting and a good cast',
+    'Booooooooooring',
   ];
   const randomIndex = getRandomInteger(0, comments.length - 1);
 
@@ -78,7 +81,7 @@ const generateTitle = () => {
 
 const generateAlternativeTitle=()=>{
   const alternativeTitle = [
-    'Golden Arm',
+    'The Great Flamarion',
     'Dance, Dance',
     'Popeye and Sindbad',
   ];
