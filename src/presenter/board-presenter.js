@@ -7,11 +7,9 @@ import FilmsListExtraTopView from '../view/films-list-extra-top-view.js';
 import FilmsListExtraMostCommentedView from '../view/films-list-extra-most-commented-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import PopupView from '../view/popup-view.js';
-
-import { render, RenderPosition } from '../render.js';
+import { render, RenderPosition} from '../render.js';
 
 const EXTRA_CARDS_COUNT = 2;
-
 export default class BoardPresenter {
   sortComponent = new SortView();
   filmsContainer = new FilmsContainerView();
