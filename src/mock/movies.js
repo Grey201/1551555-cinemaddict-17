@@ -1,25 +1,14 @@
 import { getRandomInteger } from '../utils.js';
 
-//todo generate
 const generateCommentsId = () => {
-  const CommentsId = [
-    '101',
-    '102',
-    '103',
-    '104',
-    '105'
-  ];
+  const CommentsId = ['101', '102', '103', '104', '105'];
   const randomIndex = getRandomInteger(0, CommentsId.length - 1);
 
   return CommentsId[randomIndex];
 };
 
 const generateAuthor = () => {
-  const author = [
-    'Ilya O\'Reilly',
-    'Snoop Dogg',
-    'Elon Musk',
-  ];
+  const author = ['Ilya O\'Reilly', 'Snoop Dogg', 'Elon Musk'];
   const randomIndex = getRandomInteger(0, author.length - 1);
 
   return author[randomIndex];
@@ -39,9 +28,7 @@ const generateComment = () => {
 };
 
 const generateEmotion = () => {
-  const emotion = [
-    'smile', 'sleeping', 'puke', 'angry'
-  ];
+  const emotion = ['smile', 'sleeping', 'puke', 'angry'];
   const randomIndex = getRandomInteger(0, emotion.length - 1);
 
   return emotion[randomIndex];
@@ -49,7 +36,10 @@ const generateEmotion = () => {
 
 const generateDate = () => {
   const date = [
-    '2019-05-11T16:12:32.554Z', '1963-07-22T16:08:32.554Z', '1974-02-15T16:08:32.554Z, 2019-05-11T00:00:00.000Z'
+    '2019-05-11T16:12:32.554Z',
+    '1963-07-22T16:08:32.554Z',
+    '1974-02-15T16:08:32.554Z',
+    '2019-10-11T00:00:00.000Z',
   ];
   const randomIndex = getRandomInteger(0, date.length - 1);
 
@@ -58,11 +48,7 @@ const generateDate = () => {
 
 ////
 const generateId = () => {
-  const id = [
-    '001',
-    '002',
-    '003',
-  ];
+  const id = ['001', '002', '003'];
   const randomIndex = getRandomInteger(0, id.length - 1);
 
   return id[randomIndex];
@@ -79,7 +65,7 @@ const generateTitle = () => {
   return moviesTitle[randomIndex];
 };
 
-const generateAlternativeTitle=()=>{
+const generateAlternativeTitle = () => {
   const alternativeTitle = [
     'The Great Flamarion',
     'Dance, Dance',
@@ -88,7 +74,6 @@ const generateAlternativeTitle=()=>{
   const randomIndex = getRandomInteger(0, alternativeTitle.length - 1);
 
   return alternativeTitle[randomIndex];
-
 };
 
 const generateRating = () => {
@@ -109,66 +94,68 @@ const generatePoster = () => {
   return poster[randomIndex];
 };
 
-const generateAgeRating=()=>{
-  const ageRating=[14, 18, 7];
+const generateAgeRating = () => {
+  const ageRating = [16, 18, 7];
   const randomIndex = getRandomInteger(0, ageRating.length - 1);
 
   return ageRating[randomIndex];
 };
 
-const generateDirector=()=>{
-  const director=['Tom Ford', 'Peter Jackson', 'Christopher Nolan'];
+const generateDirector = () => {
+  const director = ['Tom Ford', 'Peter Jackson', 'Christopher Nolan'];
   const randomIndex = getRandomInteger(0, director.length - 1);
 
   return director[randomIndex];
 };
-const generateWriter=()=>{
-  const writers=['Takeshi Kitano', 'Mel Gibson', 'George Lucas'];
+const generateWriter = () => {
+  const writers = ['Takeshi Kitano', 'Mel Gibson', 'George Lucas'];
   const randomIndex = getRandomInteger(0, writers.length - 1);
 
   return writers[randomIndex];
 };
 
-const generateActor=()=>{
-  const actors=['Morgan Freeman', 'Jim Carrey', 'Sharon Stone'];
+const generateActor = () => {
+  const actors = ['Morgan Freeman', 'Jim Carrey', 'Sharon Stone'];
   const randomIndex = getRandomInteger(0, actors.length - 1);
 
   return actors[randomIndex];
 };
 
-const generateReleaseCountry=()=>{
-  const releaseCountry=['Finland', 'USA', 'Poland'];
+const generateReleaseCountry = () => {
+  const releaseCountry = ['Finland', 'USA', 'Poland'];
   const randomIndex = getRandomInteger(0, releaseCountry.length - 1);
 
   return releaseCountry[randomIndex];
 };
 
-const generateRuntime=()=>{
-  const runtime=['Finland', 'USA', 'Poland'];
+const generateRuntime = () => {
+  const runtime = ['1h 55m', '2h 05m', '45m'];
   const randomIndex = getRandomInteger(0, runtime.length - 1);
 
   return runtime[randomIndex];
 };
 
-const generateGenre=()=>{
-  const genre=['Comedy', 'Musical', 'Western', 'Drama'];
+const generateGenre = () => {
+  const genre = ['Comedy', 'Musical', 'Western', 'Drama'];
   const randomIndex = getRandomInteger(0, genre.length - 1);
 
   return genre[randomIndex];
 };
 
-const generateDescription=()=>{
-  const description=['Oscar-winning film, a war drama about two young people, from the creators of timeless classic "Nu, Pogodi!" and "Alice in Wonderland", with the best fight scenes since Bruce Lee.',
+const generateDescription = () => {
+  const description = [
+    'Oscar-winning film, a war drama about two young people, from the creators of timeless classic "Nu, Pogodi!" and "Alice in Wonderland", with the best fight scenes since Bruce Lee.',
     'Frankie Machine (Frank Sinatra) is released from the federal Narcotic Farm in Lexington, Kentucky with a set of drums and a new outlook on…',
-    'The Martians Momar ("Mom Martian") and Kimar ("King Martian") are worried that their children Girmar ("Girl Martian") and Bomar ("Boy Marti…'];
+    'The Martians Momar ("Mom Martian") and Kimar ("King Martian") are worried that their children Girmar ("Girl Martian") and Bomar ("Boy Marti…',
+    'The film opens following a murder at a cabaret in Mexico City in 1936, and then presents the events leading up to it in flashback. The Great Flamarion (Erich von Stroheim) is an arrogant, friendless, and misogynous marksman who displays his trick gunshot act in the vaudeville circuit. His show features a beautiful assistant, Connie (Mary Beth Hughes) and her drunken husband Al (Dan Duryea), Flamarionn\'s other assistant. Flamarion falls in love with Connie, the movien\'s femme fatale, and is soon manipulated by her into killing her no good husband during one of their acts.',
+  ];
   const randomIndex = getRandomInteger(0, description.length - 1);
 
   return description[randomIndex];
 };
 
-
-const generateBoolean=()=>{
-  const boolean=[0, 1];
+const generateBoolean = () => {
+  const boolean = [0, 1];
   const randomIndex = getRandomInteger(0, boolean.length - 1);
 
   return boolean[randomIndex];
@@ -184,11 +171,8 @@ export const generateComments = () => ({
 });
 
 export const generateMoves = () => ({
-  //todo
   id: generateId(),
-  comments: [
-    generateCommentsId(), generateCommentsId()
-  ],
+  comments: [generateCommentsId(), generateCommentsId()],
   filmInfo: {
     title: generateTitle(),
     alternativeTitle: generateAlternativeTitle(),
@@ -213,5 +197,3 @@ export const generateMoves = () => ({
     favorite: generateBoolean(),
   },
 });
-
-

@@ -8,7 +8,7 @@ import FilmsListExtraMostCommentedView from '../view/films-list-extra-most-comme
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import PopupView from '../view/popup-view.js';
 
-import { render, RenderPosition} from '../render.js';
+import { render, RenderPosition } from '../render.js';
 
 const EXTRA_CARDS_COUNT = 2;
 
@@ -23,27 +23,34 @@ export default class BoardPresenter {
   containerListExtraMostCommented = new FilmsListExtraMostCommentedView();
   filmsListContainerMostCommented = new FilmsListContainerView();
 
-
   init = (boardContainer, moviesModel, siteFooterElement) => {
     this.boardContainer = boardContainer;
-    this.moviesModel=moviesModel;
-    this.movies=[...this.moviesModel.getMovies()];
+    this.moviesModel = moviesModel;
+    this.movies = [...this.moviesModel.getMovies()];
     this.comments = [...this.moviesModel.getComments()];
-    console.log(this.movies);
-    console.log(this.comments);
     render(this.sortComponent, this.boardContainer);
     render(this.filmsContainer, this.boardContainer);
     render(this.filmsList, this.filmsContainer.getElement());
     render(this.filmsListContainer, this.filmsList.getElement());
     for (let i = 0; i < this.movies.length; i++) {
-      render(new FilmCardView(this.movies[i]), this.filmsListContainer.getElement());
+      render(
+        new FilmCardView(this.movies[i]),
+        this.filmsListContainer.getElement()
+      );
     }
     render(this.showMoreButton, this.filmsList.getElement());
 
     render(this.containerListExtraTop, this.filmsContainer.getElement());
-    render(this.filmsListContainerTop, this.containerListExtraTop.getElement(), RenderPosition.BEFOREEND);
+    render(
+      this.filmsListContainerTop,
+      this.containerListExtraTop.getElement(),
+      RenderPosition.BEFOREEND
+    );
     for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
-      render(new FilmCardView(this.movies[i]), this.filmsListContainerTop.getElement());
+      render(
+        new FilmCardView(this.movies[i]),
+        this.filmsListContainerTop.getElement()
+      );
     }
 
     render(
@@ -52,7 +59,8 @@ export default class BoardPresenter {
     );
     render(
       this.filmsListContainerMostCommented,
-      this.containerListExtraMostCommented.getElement(), RenderPosition.BEFOREEND
+      this.containerListExtraMostCommented.getElement(),
+      RenderPosition.BEFOREEND
     );
 
     for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
@@ -61,7 +69,10 @@ export default class BoardPresenter {
         this.filmsListContainerMostCommented.getElement()
       );
     }
-    render(new PopupView(this.movies[0], this.comments), siteFooterElement, RenderPosition.AFTEREND);
+    render(
+      new PopupView(this.movies[0], this.comments),
+      siteFooterElement,
+      RenderPosition.AFTEREND
+    );
   };
-
 }
