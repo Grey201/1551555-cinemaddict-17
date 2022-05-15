@@ -21,7 +21,7 @@ export default class BoardPresenter {
   containerListExtraMostCommented = new FilmsListExtraMostCommentedView();
   filmsListContainerMostCommented = new FilmsListContainerView();
 
-  init = (boardContainer, moviesModel, siteFooterElement) => {
+  init = (boardContainer, siteFooterElement, moviesModel) => {
     this.boardContainer = boardContainer;
     this.moviesModel = moviesModel;
     this.movies = [...this.moviesModel.getMovies()];
@@ -30,14 +30,8 @@ export default class BoardPresenter {
     render(this.filmsContainer, this.boardContainer);
     render(this.filmsList, this.filmsContainer.getElement());
     render(this.filmsListContainer, this.filmsList.getElement());
-    for (let i = 0; i < this.movies.length; i++) {
-      render(
-        new FilmCardView(this.movies[i]),
-        this.filmsListContainer.getElement()
-      );
-    }
+    this.movies.forEach((movie)=>render(new FilmCardView(movie),this.filmsListContainer.getElement()));
     render(this.showMoreButton, this.filmsList.getElement());
-
     render(this.containerListExtraTop, this.filmsContainer.getElement());
     render(
       this.filmsListContainerTop,

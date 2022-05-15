@@ -15,6 +15,6 @@ const boardPresenter = new BoardPresenter();
 
 render(new ProfileView(), siteHeaderElement);
 render(new FilterView(), siteMainElement);
-boardPresenter.init(siteMainElement, moviesModel, siteFooterElement);
+boardPresenter.init(siteMainElement, siteFooterElement, moviesModel);
 render(new MoviesInsideView(), filmsStatistic);
 

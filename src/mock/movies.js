@@ -1,10 +1,10 @@
 import { getRandomInteger } from '../utils.js';
 
-const generateCommentsId = () => {
-  const CommentsId = ['101', '102', '103', '104', '105'];
-  const randomIndex = getRandomInteger(0, CommentsId.length - 1);
+const generateCommentId = () => {
+  const commentsId = ['101', '102', '103', '104', '105'];
+  const randomIndex = getRandomInteger(0, commentsId.length - 1);
 
-  return CommentsId[randomIndex];
+  return commentsId[randomIndex];
 };
 
 const generateAuthor = () => {
@@ -14,7 +14,7 @@ const generateAuthor = () => {
   return author[randomIndex];
 };
 
-const generateComment = () => {
+const generateTextComment = () => {
   const comments = [
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     'Cras aliquet varius magna, non porta ligula feugiat eget.',
@@ -162,17 +162,17 @@ const generateBoolean = () => {
 };
 
 //todo
-export const generateComments = () => ({
-  id: generateCommentsId(),
+export const generateComment = () => ({
+  id: generateCommentId(),
   author: generateAuthor(),
-  comment: generateComment(),
+  comment: generateTextComment(),
   date: generateDate(),
   emotion: generateEmotion(),
 });
 
-export const generateMoves = () => ({
+export const generateMove = () => ({
   id: generateId(),
-  comments: [generateCommentsId(), generateCommentsId()],
+  comments: [generateCommentId(), generateCommentId()],
   filmInfo: {
     title: generateTitle(),
     alternativeTitle: generateAlternativeTitle(),
