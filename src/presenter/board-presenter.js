@@ -6,12 +6,10 @@ import FilmsListContainerView from '../view/films-list-container-view.js';
 import FilmsListExtraTopView from '../view/films-list-extra-top-view.js';
 import FilmsListExtraMostCommentedView from '../view/films-list-extra-most-commented-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
-
+import PopupView from '../view/popup-view.js';
 import { render, RenderPosition} from '../render.js';
 
-const CARDS_ON_START = 5;
 const EXTRA_CARDS_COUNT = 2;
-
 export default class BoardPresenter {
   sortComponent = new SortView();
   filmsContainer = new FilmsContainerView();
@@ -23,21 +21,28 @@ export default class BoardPresenter {
   containerListExtraMostCommented = new FilmsListExtraMostCommentedView();
   filmsListContainerMostCommented = new FilmsListContainerView();
 
-  init = (boardContainer) => {
+  init = (boardContainer, siteFooterElement, moviesModel) => {
     this.boardContainer = boardContainer;
+    this.moviesModel = moviesModel;
+    this.movies = [...this.moviesModel.getMovies()];
+    this.comments = [...this.moviesModel.getComments()];
     render(this.sortComponent, this.boardContainer);
     render(this.filmsContainer, this.boardContainer);
     render(this.filmsList, this.filmsContainer.getElement());
     render(this.filmsListContainer, this.filmsList.getElement());
-    for (let i = 0; i < CARDS_ON_START; i++) {
-      render(new FilmCardView(), this.filmsListContainer.getElement());
-    }
+    this.movies.forEach((movie)=>render(new FilmCardView(movie),this.filmsListContainer.getElement()));
     render(this.showMoreButton, this.filmsList.getElement());
-
     render(this.containerListExtraTop, this.filmsContainer.getElement());
-    render(this.filmsListContainerTop, this.containerListExtraTop.getElement(), RenderPosition.BEFOREEND);
+    render(
+      this.filmsListContainerTop,
+      this.containerListExtraTop.getElement(),
+      RenderPosition.BEFOREEND
+    );
     for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
-      render(new FilmCardView(), this.filmsListContainerTop.getElement());
+      render(
+        new FilmCardView(this.movies[i]),
+        this.filmsListContainerTop.getElement()
+      );
     }
 
     render(
@@ -46,14 +51,20 @@ export default class BoardPresenter {
     );
     render(
       this.filmsListContainerMostCommented,
-      this.containerListExtraMostCommented.getElement(), RenderPosition.BEFOREEND
+      this.containerListExtraMostCommented.getElement(),
+      RenderPosition.BEFOREEND
     );
 
     for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
       render(
-        new FilmCardView(),
+        new FilmCardView(this.movies[i]),
         this.filmsListContainerMostCommented.getElement()
       );
     }
+    render(
+      new PopupView(this.movies[0], this.comments),
+      siteFooterElement,
+      RenderPosition.AFTEREND
+    );
   };
 }
