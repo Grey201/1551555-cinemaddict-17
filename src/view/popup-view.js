@@ -22,7 +22,6 @@ const generateComments = (select) =>
       </div>
     </li>`)
   );
-//
 
 const createPopupTemplate = (movie, commentsAll) => {
   const { comments, filmInfo, userDetails } = movie;
