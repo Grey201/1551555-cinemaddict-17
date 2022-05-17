@@ -8,8 +8,7 @@ import FilmsListExtraMostCommentedView from '../view/films-list-extra-most-comme
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import PopupView from '../view/popup-view.js';
 import { render, RenderPosition} from '../render.js';
-// const siteFooterElement= document.querySelector('.footer');
-// console.log(siteFooterElement);
+
 const EXTRA_CARDS_COUNT = 2;
 export default class BoardPresenter {
   #boardContainer = null;
@@ -26,7 +25,7 @@ export default class BoardPresenter {
   #containerListExtraMostCommented = new FilmsListExtraMostCommentedView();
   #filmsListContainerMostCommented = new FilmsListContainerView();
 
-  init = (boardContainer, moviesModel) => { //siteFooterElement,
+  init = (boardContainer, moviesModel) => {
 
     this.#boardContainer = boardContainer;
     this.#moviesModel = moviesModel;
@@ -36,8 +35,7 @@ export default class BoardPresenter {
     render(this.#filmsContainer, this.#boardContainer);
     render(this.#filmsList, this.#filmsContainer.element);
     render(this.#filmsListContainer, this.#filmsList.element);
-    //! this.#movies.forEach((movie)=>render(new FilmCardView(movie),this.#filmsListContainer.element));
-    this.#movies.forEach((movie)=>this.#renderMovie(movie));
+    this.#movies.forEach((movie)=>this.#renderMovie((movie), this.#filmsListContainer.element));
     render(this.#showMoreButton, this.#filmsList.element);
     render(this.#containerListExtraTop, this.#filmsContainer.element);
     render(
@@ -46,8 +44,7 @@ export default class BoardPresenter {
       RenderPosition.BEFOREEND
     );
     for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
-      this.#renderMovie(this.#movies[i]),
-      this.#filmsListContainerTop.element;
+      this.#renderMovie(this.#movies[i], this.#filmsListContainerTop.element);
     }
 
     render(
@@ -61,19 +58,12 @@ export default class BoardPresenter {
       RenderPosition.BEFOREEND
     );
 
-    // for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
-    //   this.#renderMovie(this.#movies[i]),
-    //     this.#filmsListContainerMostCommented.element;
-    // }
-
-    // render(
-    //   new PopupView(this.#movies[0], this.#comments),
-    //   siteFooterElement,
-    //   RenderPosition.AFTEREND
-    // );
+    for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
+      this.#renderMovie(this.#movies[i],
+        this.#filmsListContainerMostCommented.element);
+    }
   };
 
-  // const popup =new PopupView(movie, this.#comments);
   #renderMovie = (movie, container) => {
     const movieComponent = new FilmCardView(movie);
     const popup=new PopupView(movie, this.#comments);
@@ -94,16 +84,13 @@ export default class BoardPresenter {
         RenderPosition.AFTEREND
       );
       document.addEventListener('keydown', onEscKeyDown);
-    }
-    );
+    });
 
     popup.element.querySelector('.film-details__close-btn').addEventListener('click', ()=>{document.querySelector('.film-details').remove();
       document.removeEventListener('keydown', onEscKeyDown);
     });
 
-
-    render(movieComponent, this.#filmsListContainer.element);
-    // render(fghComponet, this.#filmsListContainerTop.element);//this.#filmsListContainer.element
+    render(movieComponent, container);
   };
 }
 

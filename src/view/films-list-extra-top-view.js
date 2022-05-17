@@ -7,7 +7,7 @@ const createFilmsListExtraTopTemplate = () =>(
 
 export default class FilmsListExtraTopView {
   #element=null;
-  
+
   get template() {
     return createFilmsListExtraTopTemplate();
   }
