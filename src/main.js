@@ -16,3 +16,4 @@ render(new ProfileView(), siteHeaderElement);
 render(new FilterView(), siteMainElement);
 boardPresenter.init(siteMainElement, moviesModel);
 render(new MoviesInsideView(), filmsStatistic);
+
