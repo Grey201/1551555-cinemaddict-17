@@ -161,23 +161,27 @@ const createPopupTemplate = (movie, commentsAll) => {
 </section>`);
 };
 export default class PopupView {
-  constructor(movie, comments) {
-    this.movie = movie;
-    this.comments = comments;
+  #element=null;
+  #movie=null;
+  #comment=null;
+
+  constructor(movie, comment) {
+    this.#movie = movie;
+    this.#comment = comment;
   }
 
-  getTemplate() {
-    return createPopupTemplate(this.movie, this.comments);
+  get template() {
+    return createPopupTemplate(this.#movie, this.#comment);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }

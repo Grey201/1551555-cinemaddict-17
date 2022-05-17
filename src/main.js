@@ -7,7 +7,7 @@ import MoviesModel from './model/movies-model.js';
 
 const siteMainElement = document.querySelector('.main');
 const siteHeaderElement = document.querySelector('.header');
-const siteFooterElement= document.querySelector('.footer');
+// const siteFooterElement= document.querySelector('.footer');
 const filmsStatistic = document.querySelector('.footer__statistics');
 
 const moviesModel=new MoviesModel();
@@ -15,5 +15,5 @@ const boardPresenter = new BoardPresenter();
 
 render(new ProfileView(), siteHeaderElement);
 render(new FilterView(), siteMainElement);
-boardPresenter.init(siteMainElement, siteFooterElement, moviesModel);
+boardPresenter.init(siteMainElement, moviesModel); //siteFooterElement
 render(new MoviesInsideView(), filmsStatistic);
