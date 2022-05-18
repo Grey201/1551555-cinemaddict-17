@@ -161,7 +161,6 @@ const generateBoolean = () => {
   return boolean[randomIndex];
 };
 
-//todo
 export const generateComment = () => ({
   id: generateCommentId(),
   author: generateAuthor(),

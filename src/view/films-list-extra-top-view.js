@@ -1,24 +1,25 @@
 import { createElement } from '../render.js';
 
-const createFilmsListExtraTopTemplate = () =>(
+const createFilmsListExtraTopTemplate = () =>
   `<section class="films-list films-list--extra">
   <h2 class="films-list__title">Top rated</h2>
-  </section>`);
+  </section>`;
 
 export default class FilmsListExtraTopView {
-  getTemplate() {
+  #element = null;
+
+  get template() {
     return createFilmsListExtraTopTemplate();
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
-
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }

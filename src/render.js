@@ -13,7 +13,7 @@ const createElement = (template) => {
 };
 
 const render = (component, container, place = RenderPosition.BEFOREEND) => {
-  const element = component.getElement();
+  const element = component.element;
 
   switch (place) {
     case RenderPosition.BEFOREBEGIN:
@@ -31,4 +31,4 @@ const render = (component, container, place = RenderPosition.BEFOREEND) => {
   }
 };
 
-export {RenderPosition, createElement, render};
+export { RenderPosition, createElement, render };
