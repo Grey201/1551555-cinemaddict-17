@@ -10,9 +10,10 @@ const siteHeaderElement = document.querySelector('.header');
 const filmsStatistic = document.querySelector('.footer__statistics');
 
 const moviesModel=new MoviesModel();
-const boardPresenter = new BoardPresenter();
+const boardPresenter = new BoardPresenter(siteMainElement, moviesModel);
 
 render(new ProfileView(), siteHeaderElement);
 render(new FilterView(), siteMainElement);
-boardPresenter.init(siteMainElement, moviesModel);
+boardPresenter.init();
 render(new MoviesInsideView(), filmsStatistic);
+

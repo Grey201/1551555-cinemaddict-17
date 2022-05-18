@@ -3,7 +3,7 @@ import { createElement } from '../render.js';
 const createMoviesInsideTemplate = () => '<p>130 291 movies inside</p>';
 
 export default class MoviesInsideView {
-  #element=null;
+  #element = null;
 
   get template() {
     return createMoviesInsideTemplate();
