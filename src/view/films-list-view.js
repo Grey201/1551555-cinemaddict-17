@@ -3,7 +3,7 @@ import { createElement } from '../render.js';
 const сreateFilmsListTemplate = () => '<section class="films-list">';
 
 export default class FilmsListView {
-  #element=null;
+  #element = null;
 
   get template() {
     return сreateFilmsListTemplate();

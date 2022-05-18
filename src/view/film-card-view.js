@@ -10,7 +10,7 @@ const createFilmCardsTemplate = (movie) => {
       ? humanizeMovieYear(filmInfo.release.date)
       : '';
 
-  return (`<article class="film-card">
+  return `<article class="film-card">
         <a class="film-card__link">
           <h3 class="film-card__title">${filmInfo.title}</h3>
           <p class="film-card__rating">${filmInfo.totalRating}</p>
@@ -25,21 +25,21 @@ const createFilmCardsTemplate = (movie) => {
         </a>
         <div class="film-card__controls">
           <button class="film-card__controls-item film-card__controls-item--add-to-watchlist ${getControlClassName(
-      userDetails.watchlist
-    )}" type="button">Add to watchlist</button>
+    userDetails.watchlist
+  )}" type="button">Add to watchlist</button>
           <button class="film-card__controls-item film-card__controls-item--mark-as-watched ${getControlClassName(
-      userDetails.alreadyWatched
-    )}" type="button">Mark as watched</button>
+    userDetails.alreadyWatched
+  )}" type="button">Mark as watched</button>
           <button class="film-card__controls-item film-card__controls-item--favorite ${getControlClassName(
-      userDetails.favorite
-    )}"  type="button">Mark as favorite</button>
+    userDetails.favorite
+  )}"  type="button">Mark as favorite</button>
         </div>
       </article>
-    `);
+    `;
 };
 export default class FilmCardView {
-  #element =null;
-  #movie=null;
+  #element = null;
+  #movie = null;
 
   constructor(movie) {
     this.#movie = movie;

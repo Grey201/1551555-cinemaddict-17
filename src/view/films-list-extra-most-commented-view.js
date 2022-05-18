@@ -1,12 +1,11 @@
 import { createElement } from '../render.js';
 
-const createFilmsListExtraMostCommentedTemplate = () =>(
+const createFilmsListExtraMostCommentedTemplate = () =>
   `<section class="films-list films-list--extra">
-<h2 class="films-list__title">Most commented</h2>`
-);
+<h2 class="films-list__title">Most commented</h2>`;
 
 export default class FilmsListExtraMostCommentedView {
-  #element =null;
+  #element = null;
   get template() {
     return createFilmsListExtraMostCommentedTemplate();
   }

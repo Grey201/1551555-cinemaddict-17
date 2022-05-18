@@ -7,7 +7,7 @@ const createSortTemplate = () =>
     <li><a href="#" class="sort__button">Sort by rating</a></li>
   </ul>`;
 export default class SortView {
-  #element=null;
+  #element = null;
 
   get template() {
     return createSortTemplate();

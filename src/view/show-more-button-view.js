@@ -4,7 +4,7 @@ const createShowMoreButtonTemplate = () =>
   '<button class="films-list__show-more">Show more</button>';
 
 export default class ShowMoreButtonView {
-  #element= null;
+  #element = null;
 
   get template() {
     return createShowMoreButtonTemplate();

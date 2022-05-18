@@ -4,7 +4,7 @@ const createFilmsListContainerTemplate = () =>
   '<div class="films-list__container"></div>';
 
 export default class FilmsListContainerView {
-  #element=null;
+  #element = null;
 
   get template() {
     return createFilmsListContainerTemplate();
@@ -21,4 +21,3 @@ export default class FilmsListContainerView {
     this.#element = null;
   }
 }
-
