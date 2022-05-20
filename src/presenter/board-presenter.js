@@ -93,56 +93,50 @@ export default class BoardPresenter {
       render(this.#filmsContainer, this.#boardContainer);
       render(this.#filmsList, this.#filmsContainer.element);
       render(new NoMovieView(), this.#filmsList.element);
-    } else {
-      render(this.#sortComponent, this.#boardContainer);
-      render(this.#filmsContainer, this.#boardContainer);
-      render(this.#filmsList, this.#filmsContainer.element);
-      render(this.#filmsListContainer, this.#filmsList.element);
+    }
+    render(this.#sortComponent, this.#boardContainer);
+    render(this.#filmsContainer, this.#boardContainer);
+    render(this.#filmsList, this.#filmsContainer.element);
+    render(this.#filmsListContainer, this.#filmsList.element);
 
-      for (
-        let i = 0;
-        i < Math.min(this.#movies.length, MOVIE_COUNT_PER_STEP);
-        i++
-      ) {
-        this.#renderMovie(this.#movies[i], this.#filmsListContainer.element);
-      }
+    const minValue = Math.min(this.#movies.length, MOVIE_COUNT_PER_STEP);
 
-      if (this.#movies.length > MOVIE_COUNT_PER_STEP) {
-        render(this.#showMoreButtonComponent, this.#filmsList.element);
-        this.#showMoreButtonComponent.element.addEventListener(
-          'click',
-          this.#onLoadMoreButtonClick
-        );
-      }
+    for (let i = 0; i < minValue; i++) {
+      this.#renderMovie(this.#movies[i], this.#filmsListContainer.element);
+    }
 
-      render(this.#containerListExtraTop, this.#filmsContainer.element);
+    if (this.#movies.length > MOVIE_COUNT_PER_STEP) {
       render(this.#showMoreButtonComponent, this.#filmsList.element);
-      render(
-        this.#filmsListContainerTop,
-        this.#containerListExtraTop.element,
-        RenderPosition.BEFOREEND
+      this.#showMoreButtonComponent.element.addEventListener(
+        'click',
+        this.#onLoadMoreButtonClick
       );
-      for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
-        this.#renderMovie(this.#movies[i], this.#filmsListContainerTop.element);
-      }
+    }
 
-      render(
-        this.#containerListExtraMostCommented,
-        this.#filmsContainer.element
+    render(this.#containerListExtraTop, this.#filmsContainer.element);
+    render(this.#showMoreButtonComponent, this.#filmsList.element);
+    render(
+      this.#filmsListContainerTop,
+      this.#containerListExtraTop.element,
+      RenderPosition.BEFOREEND
+    );
+    for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
+      this.#renderMovie(this.#movies[i], this.#filmsListContainerTop.element);
+    }
+
+    render(this.#containerListExtraMostCommented, this.#filmsContainer.element);
+
+    render(
+      this.#filmsListContainerMostCommented,
+      this.#containerListExtraMostCommented.element,
+      RenderPosition.BEFOREEND
+    );
+
+    for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
+      this.#renderMovie(
+        this.#movies[i],
+        this.#filmsListContainerMostCommented.element
       );
-
-      render(
-        this.#filmsListContainerMostCommented,
-        this.#containerListExtraMostCommented.element,
-        RenderPosition.BEFOREEND
-      );
-
-      for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
-        this.#renderMovie(
-          this.#movies[i],
-          this.#filmsListContainerMostCommented.element
-        );
-      }
     }
   };
 }
