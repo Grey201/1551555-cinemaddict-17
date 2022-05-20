@@ -2,9 +2,9 @@ import { createElement } from '../render.js';
 import { humanizeMovieDueDate, humanizeMovieDueDateTime } from '../utils.js';
 
 const generateComments = (select) =>
-  select.map(
-    (comment) =>
-      `<li class="film-details__comment">
+  select
+    .map(
+      (comment) => `<li class="film-details__comment">
       <span class="film-details__comment-emoji">
         <img src="./images/emoji/${
   comment.emotion
@@ -21,7 +21,8 @@ const generateComments = (select) =>
         </p>
       </div>
     </li>`
-  );
+    )
+    .join('');
 
 const createPopupTemplate = (movie, commentsAll) => {
   const { comments, filmInfo, userDetails } = movie;
@@ -120,11 +121,11 @@ const createPopupTemplate = (movie, commentsAll) => {
   <div class="film-details__bottom-container">
     <section class="film-details__comments-wrap">
       <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${
-  generateComments(selectedComments).length
+  selectedComments.length
 }</span></h3>
 
       <ul class="film-details__comments-list">
-      ${generateComments(selectedComments).join('')}
+      ${generateComments(selectedComments)}
       </ul>
 
       <div class="film-details__new-comment">
