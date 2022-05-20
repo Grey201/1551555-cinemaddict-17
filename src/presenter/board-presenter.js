@@ -93,6 +93,7 @@ export default class BoardPresenter {
       render(this.#filmsContainer, this.#boardContainer);
       render(this.#filmsList, this.#filmsContainer.element);
       render(new NoMovieView(), this.#filmsList.element);
+      return;
     }
     render(this.#sortComponent, this.#boardContainer);
     render(this.#filmsContainer, this.#boardContainer);
