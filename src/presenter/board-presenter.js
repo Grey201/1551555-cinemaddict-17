@@ -1,3 +1,4 @@
+import { render, remove, RenderPosition } from '../framework/render.js';
 import SortView from '../view/sort-view.js';
 import FilmCardView from '../view/film-card-view.js';
 import FilmsContainerView from '../view/films-container-view.js';
@@ -8,7 +9,6 @@ import FilmsListExtraMostCommentedView from '../view/films-list-extra-most-comme
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import PopupView from '../view/popup-view.js';
 import NoMovieView from '../view/no-movie-view.js';
-import { render, RenderPosition } from '../render.js';
 
 const EXTRA_CARDS_COUNT = 2;
 const MOVIE_COUNT_PER_STEP = 5;
@@ -40,8 +40,7 @@ export default class BoardPresenter {
     this.#renderBoard();
   };
 
-  #onLoadMoreButtonClick = (evt) => {
-    evt.preventDefault();
+  #onLoadMoreButtonClick = () => {
     this.#movies
       .slice(
         this.#renderedMovieCount,
@@ -53,8 +52,7 @@ export default class BoardPresenter {
     this.#renderedMovieCount += MOVIE_COUNT_PER_STEP;
 
     if (this.#renderedMovieCount >= this.#movies.length) {
-      this.#showMoreButtonComponent.element.remove();
-      this.#showMoreButtonComponent.removeElement();
+      remove(this.#showMoreButtonComponent);
     }
   };
 
@@ -70,20 +68,16 @@ export default class BoardPresenter {
       }
     };
 
-    movieComponent.element
-      .querySelector('.film-card__link')
-      .addEventListener('click', () => {
-        const siteFooterElement = document.querySelector('.footer');
-        render(popup, siteFooterElement, RenderPosition.AFTEREND);
-        document.addEventListener('keydown', onEscKeyDown);
-      });
+    movieComponent.setShowClickHandler(() => {
+      const siteFooterElement = document.querySelector('.footer');
+      render(popup, siteFooterElement, RenderPosition.AFTEREND);
+      document.addEventListener('keydown', onEscKeyDown);
+    });
 
-    popup.element
-      .querySelector('.film-details__close-btn')
-      .addEventListener('click', () => {
-        document.querySelector('.film-details').remove();
-        document.removeEventListener('keydown', onEscKeyDown);
-      });
+    popup.setCloseClickHandler(() => {
+      document.querySelector('.film-details').remove();
+      document.removeEventListener('keydown', onEscKeyDown);
+    });
 
     render(movieComponent, container);
   };
@@ -108,8 +102,7 @@ export default class BoardPresenter {
 
     if (this.#movies.length > MOVIE_COUNT_PER_STEP) {
       render(this.#showMoreButtonComponent, this.#filmsList.element);
-      this.#showMoreButtonComponent.element.addEventListener(
-        'click',
+      this.#showMoreButtonComponent.setClickHandler(
         this.#onLoadMoreButtonClick
       );
     }

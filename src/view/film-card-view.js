@@ -1,14 +1,11 @@
-import { createElement } from '../render.js';
-import { humanizeMovieYear } from '../utils.js';
+import AbstractView from '../framework/view/abstract-view.js';
+import { humanizeMovieYear } from '../utils/movie.js';
 
 const createFilmCardsTemplate = (movie) => {
   const { filmInfo, userDetails } = movie;
   const getControlClassName = (option) =>
     option ? 'film-card__controls-item--active' : '';
-  const year =
-    filmInfo.release.date !== null
-      ? humanizeMovieYear(filmInfo.release.date)
-      : '';
+  const year = humanizeMovieYear(filmInfo.release.date);
 
   return `<article class="film-card">
         <a class="film-card__link">
@@ -37,11 +34,11 @@ const createFilmCardsTemplate = (movie) => {
       </article>
     `;
 };
-export default class FilmCardView {
-  #element = null;
+export default class FilmCardView extends AbstractView {
   #movie = null;
 
   constructor(movie) {
+    super();
     this.#movie = movie;
   }
 
@@ -49,14 +46,15 @@ export default class FilmCardView {
     return createFilmCardsTemplate(this.#movie);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
+  setShowClickHandler = (callback) => {
+    this._callback.editClick = callback;
+    this.element
+      .querySelector('.film-card__link')
+      .addEventListener('click', this.#editClickHandler);
+  };
 
-  removeElement() {
-    this.#element = null;
-  }
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.editClick();
+  };
 }
