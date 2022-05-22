@@ -1,5 +1,5 @@
 const path = require('path');
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -16,11 +16,15 @@ module.exports = {
   ],
   module: {
     rules: [
-        {
-          test: /\.js$/,
-          exclude: /(node_modules)/,
-          use: ['babel-loader']
-        }
-    ]
-  }
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: ['babel-loader'],
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
 };

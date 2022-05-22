@@ -1,4 +1,4 @@
-import { getRandomInteger } from '../utils.js';
+import { getRandomInteger } from '../utils/common.js';
 
 const generateCommentId = () => {
   const commentsId = ['101', '102', '103', '104', '105'];
@@ -46,7 +46,6 @@ const generateDate = () => {
   return date[randomIndex];
 };
 
-////
 const generateId = () => {
   const id = ['001', '002', '003'];
   const randomIndex = getRandomInteger(0, id.length - 1);

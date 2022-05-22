@@ -1,7 +1,7 @@
+import {render} from './framework/render.js';
 import ProfileView from './view/profile-view.js';
 import FilterView from './view/filter-view.js';
 import MoviesInsideView from './view/movies-inside-view.js';
-import { render} from './render.js';
 import BoardPresenter from './presenter/board-presenter.js';
 import MoviesModel from './model/movies-model.js';
 
