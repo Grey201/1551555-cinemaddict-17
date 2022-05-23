@@ -26,6 +26,7 @@ export default class BoardPresenter {
   #containerListExtraTop = new FilmsListExtraTopView();
   #containerListExtraMostCommented = new FilmsListExtraMostCommentedView();
   #filmsListContainerMostCommented = new FilmsListContainerView();
+  #noMovieComponent= new NoMovieView();
   #renderedMovieCount = MOVIE_COUNT_PER_STEP;
 
   constructor(boardContainer, moviesModel) {
@@ -82,31 +83,35 @@ export default class BoardPresenter {
     render(movieComponent, container);
   };
 
-  #renderBoard = () => {
-    if (this.#movies.every((movie) => movie.isArchive)) {
-      render(this.#filmsContainer, this.#boardContainer);
-      render(this.#filmsList, this.#filmsContainer.element);
-      render(new NoMovieView(), this.#filmsList.element);
-      return;
-    }
+  #renderMovies = (from, to, container) => {
+    this.#movies
+      .slice(from, to)
+      .forEach((movie) => this.#renderMovie(movie, container));
+  };
+
+  #renderSort=()=>{
     render(this.#sortComponent, this.#boardContainer);
+  };
+
+  #renderNoMovie=()=>{
+    render(this.#noMovieComponent, this.#filmsList.element);
+  };
+
+  #renderMovieList = () => {
     render(this.#filmsContainer, this.#boardContainer);
     render(this.#filmsList, this.#filmsContainer.element);
     render(this.#filmsListContainer, this.#filmsList.element);
-
     const minValue = Math.min(this.#movies.length, MOVIE_COUNT_PER_STEP);
-
-    for (let i = 0; i < minValue; i++) {
-      this.#renderMovie(this.#movies[i], this.#filmsListContainer.element);
-    }
-
+    this.#renderMovies(0, minValue, this.#filmsListContainer.element);
     if (this.#movies.length > MOVIE_COUNT_PER_STEP) {
-      render(this.#showMoreButtonComponent, this.#filmsList.element);
+      this.#onLoadMoreButtonClick();
       this.#showMoreButtonComponent.setClickHandler(
         this.#onLoadMoreButtonClick
       );
     }
+  };
 
+  #renderTopList=()=>{
     render(this.#containerListExtraTop, this.#filmsContainer.element);
     render(this.#showMoreButtonComponent, this.#filmsList.element);
     render(
@@ -114,23 +119,29 @@ export default class BoardPresenter {
       this.#containerListExtraTop.element,
       RenderPosition.BEFOREEND
     );
-    for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
-      this.#renderMovie(this.#movies[i], this.#filmsListContainerTop.element);
-    }
+    this.#renderMovies(0,EXTRA_CARDS_COUNT, this.#filmsListContainerTop.element);
+  };
 
+  #renderExtraMostList=()=>{
     render(this.#containerListExtraMostCommented, this.#filmsContainer.element);
-
     render(
       this.#filmsListContainerMostCommented,
       this.#containerListExtraMostCommented.element,
       RenderPosition.BEFOREEND
     );
+    this.#renderMovies(0, EXTRA_CARDS_COUNT,this.#filmsListContainerMostCommented.element);
+  };
 
-    for (let i = 0; i < EXTRA_CARDS_COUNT; i++) {
-      this.#renderMovie(
-        this.#movies[i],
-        this.#filmsListContainerMostCommented.element
-      );
+  #renderBoard = () => {
+    if (this.#movies.every((movie) => movie.isArchive)) {
+      render(this.#filmsContainer, this.#boardContainer);
+      render(this.#filmsList, this.#filmsContainer.element);
+      this.#renderNoMovie();
+      return;
     }
+    this.#renderSort();
+    this.#renderMovieList();
+    this.#renderTopList();
+    this.#renderExtraMostList();
   };
 }
