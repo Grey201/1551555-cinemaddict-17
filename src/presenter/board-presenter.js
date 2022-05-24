@@ -1,13 +1,13 @@
 import { render, remove, RenderPosition } from '../framework/render.js';
 import SortView from '../view/sort-view.js';
-import FilmCardView from '../view/film-card-view.js';
+import MoviePresenter from './movie-presenter.js';
 import FilmsContainerView from '../view/films-container-view.js';
 import FilmsListView from '../view/films-list-view.js';
 import FilmsListContainerView from '../view/films-list-container-view.js';
 import FilmsListExtraTopView from '../view/films-list-extra-top-view.js';
 import FilmsListExtraMostCommentedView from '../view/films-list-extra-most-commented-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
-import PopupView from '../view/popup-view.js';
+
 import NoMovieView from '../view/no-movie-view.js';
 
 const EXTRA_CARDS_COUNT = 2;
@@ -56,32 +56,16 @@ export default class BoardPresenter {
       remove(this.#showMoreButtonComponent);
     }
   };
+  // #renderTask = (task) => {
+  //   const taskPresenter = new TaskPresenter(this.#taskListComponent.element);
+  //   taskPresenter.init(task);
 
-  #renderMovie = (movie, container) => {
-    const movieComponent = new FilmCardView(movie);
-    const popup = new PopupView(movie, this.#comments);
 
-    const onEscKeyDown = (evt) => {
-      if (evt.key === 'Escape' || evt.key === 'Esc') {
-        evt.preventDefault();
-        document.querySelector('.film-details').remove();
-        document.removeEventListener('keydown', onEscKeyDown);
-      }
-    };
-
-    movieComponent.setShowClickHandler(() => {
-      const siteFooterElement = document.querySelector('.footer');
-      render(popup, siteFooterElement, RenderPosition.AFTEREND);
-      document.addEventListener('keydown', onEscKeyDown);
-    });
-
-    popup.setCloseClickHandler(() => {
-      document.querySelector('.film-details').remove();
-      document.removeEventListener('keydown', onEscKeyDown);
-    });
-
-    render(movieComponent, container);
+  #renderMovie = (movie) => {
+    const moviePresenter=new MoviePresenter(this.#filmsListContainer.element);
+    moviePresenter.init(movie);
   };
+
 
   #renderMovies = (from, to, container) => {
     this.#movies
