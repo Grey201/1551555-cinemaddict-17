@@ -26,7 +26,7 @@ export default class BoardPresenter {
   #containerListExtraTop = new FilmsListExtraTopView();
   #containerListExtraMostCommented = new FilmsListExtraMostCommentedView();
   #filmsListContainerMostCommented = new FilmsListContainerView();
-  #noMovieComponent= new NoMovieView();
+  #noMovieComponent = new NoMovieView();
   #renderedMovieCount = MOVIE_COUNT_PER_STEP;
 
   constructor(boardContainer, moviesModel) {
@@ -56,16 +56,11 @@ export default class BoardPresenter {
       remove(this.#showMoreButtonComponent);
     }
   };
-  // #renderTask = (task) => {
-  //   const taskPresenter = new TaskPresenter(this.#taskListComponent.element);
-  //   taskPresenter.init(task);
 
-
-  #renderMovie = (movie) => {
-    const moviePresenter=new MoviePresenter(this.#filmsListContainer.element);
-    moviePresenter.init(movie);
+  #renderMovie = (movie, container) => {
+    const moviePresenter = new MoviePresenter(container);
+    moviePresenter.init(movie, this.#comments);
   };
-
 
   #renderMovies = (from, to, container) => {
     this.#movies
@@ -73,11 +68,11 @@ export default class BoardPresenter {
       .forEach((movie) => this.#renderMovie(movie, container));
   };
 
-  #renderSort=()=>{
+  #renderSort = () => {
     render(this.#sortComponent, this.#boardContainer);
   };
 
-  #renderNoMovie=()=>{
+  #renderNoMovie = () => {
     render(this.#noMovieComponent, this.#filmsList.element);
   };
 
@@ -86,7 +81,9 @@ export default class BoardPresenter {
     render(this.#filmsList, this.#filmsContainer.element);
     render(this.#filmsListContainer, this.#filmsList.element);
     const minValue = Math.min(this.#movies.length, MOVIE_COUNT_PER_STEP);
-    this.#renderMovies(0, minValue, this.#filmsListContainer.element);
+    if (this.#movies.length <= this.#renderedMovieCount) {
+      this.#renderMovies(0, minValue, this.#filmsListContainer.element);
+    }
     if (this.#movies.length > MOVIE_COUNT_PER_STEP) {
       this.#onLoadMoreButtonClick();
       this.#showMoreButtonComponent.setClickHandler(
@@ -95,7 +92,7 @@ export default class BoardPresenter {
     }
   };
 
-  #renderTopList=()=>{
+  #renderTopList = () => {
     render(this.#containerListExtraTop, this.#filmsContainer.element);
     render(this.#showMoreButtonComponent, this.#filmsList.element);
     render(
@@ -103,17 +100,25 @@ export default class BoardPresenter {
       this.#containerListExtraTop.element,
       RenderPosition.BEFOREEND
     );
-    this.#renderMovies(0,EXTRA_CARDS_COUNT, this.#filmsListContainerTop.element);
+    this.#renderMovies(
+      0,
+      EXTRA_CARDS_COUNT,
+      this.#filmsListContainerTop.element
+    );
   };
 
-  #renderExtraMostList=()=>{
+  #renderExtraMostList = () => {
     render(this.#containerListExtraMostCommented, this.#filmsContainer.element);
     render(
       this.#filmsListContainerMostCommented,
       this.#containerListExtraMostCommented.element,
       RenderPosition.BEFOREEND
     );
-    this.#renderMovies(0, EXTRA_CARDS_COUNT,this.#filmsListContainerMostCommented.element);
+    this.#renderMovies(
+      0,
+      EXTRA_CARDS_COUNT,
+      this.#filmsListContainerMostCommented.element
+    );
   };
 
   #renderBoard = () => {
