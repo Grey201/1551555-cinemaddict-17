@@ -186,8 +186,18 @@ export default class PopupView extends AbstractView {
       .addEventListener('click', this.#closeClickHandler);
   };
 
+  setFavoriteClickHandler = (callback) => {
+    this._callback.favoriteClick = callback;
+    this.element.querySelector('.film-details__control-button--favorite').addEventListener('click', this.#favoriteClickHandler);
+  };
+
   #closeClickHandler = (evt) => {
     evt.preventDefault();
     this._callback.formSubmit();
+  };
+
+  #favoriteClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.favoriteClick();
   };
 }
