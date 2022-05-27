@@ -58,9 +58,16 @@ export default class BoardPresenter {
       remove(this.#showMoreButtonComponent);
     }
   };
+  
+  #handleMovieChange = (updatedMovie) => {//
+    this.#movies = updateItem(this.#movies, updatedMovie);
+    this.#moviePresenter.get(updatedMovie.id).init(updatedMovie);
+  };
+
+ 
 
   #renderMovie = (movie, container) => {
-    const moviePresenter = new MoviePresenter(container);
+    const moviePresenter = new MoviePresenter(container, this.#handleMovieChange);//
     moviePresenter.init(movie, this.#comments);
     this.#moviePresenter.set(movie.id, moviePresenter);
   };
@@ -71,17 +78,14 @@ export default class BoardPresenter {
       .forEach((movie) => this.#renderMovie(movie, container));
   };
 
-  #handlerMovieChange = (updatedMovie) => {//
-    this.#movies = updateItem(this.#movies, updatedMovie);
-    this.#moviePresenter.get(updatedMovie.id).init(updatedMovie);
-  };
+  
 
   #renderSort = () => {
     render(this.#sortComponent, this.#boardContainer);
   };
 
   #renderNoMovie = () => {
-    render(this.#noMovieComponent, this.#filmsList.element, this.#handlerMovieChange,);//
+    render(this.#noMovieComponent, this.#filmsList.element);//
   };
 
   #renderMovieList = () => {

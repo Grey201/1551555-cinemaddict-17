@@ -30,7 +30,6 @@ export default class MoviePresenter {
       render(this.#movieComponent, this.#movieListContainer);
       return;
     }
-
     remove(prevMovieComponent);
     remove(prevPopup);
   };
@@ -41,8 +40,12 @@ export default class MoviePresenter {
   };
 
   #handleFavoriteClick = () => {
-    // const {userDetails}=this.#movie;
-    this.#changeData({...this.#movie, favorite: !this.#movie.favorite});//
+    this.#changeData({...this.#movie, userDetails: {
+      watchlist: this.#movie.userDetails.watchlist,
+      alreadyWatched: this.#movie.userDetails.alreadyWatched,
+      watchingDate: this.#movie.userDetails.watchingDate,
+      favorite: !this.#movie.userDetails.favorite}
+    });
   };
 
   #popupOpen = () => {
