@@ -17,7 +17,7 @@ export default class MoviePresenter {
   constructor(movieListContainer, changeData) {
     //
     this.#movieListContainer = movieListContainer;
-    this.#changeData = changeData; //
+    this.#changeData = changeData;
   }
 
   init = (movie, comment) => {
@@ -31,10 +31,10 @@ export default class MoviePresenter {
     this.#movieComponent.setShowClickHandler(this.#popupOpen);
     this.#movieComponent.setFavoriteClickHandler(this.#handleFavoriteClick);
     this.#movieComponent.setWatchlistClickHandler(this.#handleWatchlistClick);
-    this.#movieComponent.setWatchedClickHandler(this.#handleWatchedClick); //
-    this.#popup.setFavoriteClickHandler(this.#handleFavoriteClick); //
-    this.#popup.setWatchlistClickHandler(this.#handleWatchlistClick); //
-    this.#popup.setWatchedClickHandler(this.#handleWatchedClick); //
+    this.#movieComponent.setWatchedClickHandler(this.#handleWatchedClick);
+    this.#popup.setFavoriteClickHandler(this.#handleFavoriteClick);
+    this.#popup.setWatchlistClickHandler(this.#handleWatchlistClick);
+    this.#popup.setWatchedClickHandler(this.#handleWatchedClick);
     this.#popup.setCloseClickHandler(this.#popupClose);
 
     if (prevMovieComponent === null || prevPopup === null) {
@@ -60,7 +60,6 @@ export default class MoviePresenter {
   };
 
   #handleFavoriteClick = () => {
-    //!
     this.#changeData({
       ...this.#movie,
       userDetails: {

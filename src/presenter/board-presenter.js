@@ -8,7 +8,6 @@ import FilmsListExtraTopView from '../view/films-list-extra-top-view.js';
 import FilmsListExtraMostCommentedView from '../view/films-list-extra-most-commented-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import { updateItem } from '../utils/common.js';
-
 import NoMovieView from '../view/no-movie-view.js';
 
 const EXTRA_CARDS_COUNT = 2;
@@ -87,7 +86,7 @@ export default class BoardPresenter {
   };
 
   #renderNoMovie = () => {
-    render(this.#noMovieComponent, this.#filmsList.element); //
+    render(this.#noMovieComponent, this.#filmsList.element);
   };
 
   #renderMovieList = () => {
