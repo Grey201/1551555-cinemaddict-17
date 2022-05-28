@@ -6,6 +6,7 @@ import {
 } from '../framework/render.js';
 import PopupView from '../view/popup-view.js';
 import FilmCardView from '../view/film-card-view.js';
+
 export default class MoviePresenter {
   #movieListContainer = null;
   #movieComponent = null;
@@ -15,7 +16,6 @@ export default class MoviePresenter {
   #changeData = null;
 
   constructor(movieListContainer, changeData) {
-    //
     this.#movieListContainer = movieListContainer;
     this.#changeData = changeData;
   }
@@ -99,7 +99,7 @@ export default class MoviePresenter {
   };
 
   #popupClose = () => {
-    document.querySelector('.film-details').remove();
+    document.querySelector('.film-details').remove(this.#popup);
     document.removeEventListener('keydown', this.#onEscKeyDown);
   };
 

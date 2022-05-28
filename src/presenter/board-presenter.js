@@ -59,7 +59,6 @@ export default class BoardPresenter {
   };
 
   #handleMovieChange = (updatedMovie) => {
-    //
     this.#movies = updateItem(this.#movies, updatedMovie);
     this.#moviePresenter
       .get(updatedMovie.id)
@@ -70,7 +69,7 @@ export default class BoardPresenter {
     const moviePresenter = new MoviePresenter(
       container,
       this.#handleMovieChange
-    ); //
+    );
     moviePresenter.init(movie, this.#comments);
     this.#moviePresenter.set(movie.id, moviePresenter);
   };
