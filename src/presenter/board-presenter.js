@@ -7,7 +7,7 @@ import FilmsListContainerView from '../view/films-list-container-view.js';
 import FilmsListExtraTopView from '../view/films-list-extra-top-view.js';
 import FilmsListExtraMostCommentedView from '../view/films-list-extra-most-commented-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
-import {updateItem} from '../utils/common.js';
+import { updateItem } from '../utils/common.js';
 
 import NoMovieView from '../view/no-movie-view.js';
 
@@ -29,7 +29,7 @@ export default class BoardPresenter {
   #filmsListContainerMostCommented = new FilmsListContainerView();
   #noMovieComponent = new NoMovieView();
   #renderedMovieCount = MOVIE_COUNT_PER_STEP;
-#moviePresenter=new Map();
+  #moviePresenter = new Map();
 
   constructor(boardContainer, moviesModel) {
     this.#boardContainer = boardContainer;
@@ -58,16 +58,20 @@ export default class BoardPresenter {
       remove(this.#showMoreButtonComponent);
     }
   };
-  
-  #handleMovieChange = (updatedMovie) => {//
+
+  #handleMovieChange = (updatedMovie) => {
+    //
     this.#movies = updateItem(this.#movies, updatedMovie);
-    this.#moviePresenter.get(updatedMovie.id).init(updatedMovie);
+    this.#moviePresenter
+      .get(updatedMovie.id)
+      .init(updatedMovie, this.#comments);
   };
 
- 
-
   #renderMovie = (movie, container) => {
-    const moviePresenter = new MoviePresenter(container, this.#handleMovieChange);//
+    const moviePresenter = new MoviePresenter(
+      container,
+      this.#handleMovieChange
+    ); //
     moviePresenter.init(movie, this.#comments);
     this.#moviePresenter.set(movie.id, moviePresenter);
   };
@@ -78,14 +82,12 @@ export default class BoardPresenter {
       .forEach((movie) => this.#renderMovie(movie, container));
   };
 
-  
-
   #renderSort = () => {
     render(this.#sortComponent, this.#boardContainer);
   };
 
   #renderNoMovie = () => {
-    render(this.#noMovieComponent, this.#filmsList.element);//
+    render(this.#noMovieComponent, this.#filmsList.element); //
   };
 
   #renderMovieList = () => {
@@ -104,12 +106,12 @@ export default class BoardPresenter {
     }
   };
 
-#clearMovieList=()=>{
-  this.#moviePresenter.forEach((presenter) => presenter.destroy());
+  #clearMovieList = () => {
+    this.#moviePresenter.forEach((presenter) => presenter.destroy());
     this.#moviePresenter.clear();
     this.#renderedMovieCount = MOVIE_COUNT_PER_STEP;
     remove(this.onLoadMoreButtonClick);
-}
+  };
 
   #renderTopList = () => {
     render(this.#containerListExtraTop, this.#filmsContainer.element);

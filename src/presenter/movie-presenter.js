@@ -1,4 +1,9 @@
-import { render, RenderPosition, remove } from '../framework/render.js';
+import {
+  render,
+  RenderPosition,
+  remove,
+  replace,
+} from '../framework/render.js';
 import PopupView from '../view/popup-view.js';
 import FilmCardView from '../view/film-card-view.js';
 export default class MoviePresenter {
@@ -9,9 +14,10 @@ export default class MoviePresenter {
   #comment = [];
   #changeData = null;
 
-  constructor(movieListContainer, changeData) {//
+  constructor(movieListContainer, changeData) {
+    //
     this.#movieListContainer = movieListContainer;
-    this.#changeData = changeData;//
+    this.#changeData = changeData; //
   }
 
   init = (movie, comment) => {
@@ -19,17 +25,31 @@ export default class MoviePresenter {
 
     const prevMovieComponent = this.#movieComponent;
     const prevPopup = this.#popup;
-   
+
     this.#movieComponent = new FilmCardView(movie);
-    
     this.#popup = new PopupView(movie, comment);
     this.#movieComponent.setShowClickHandler(this.#popupOpen);
+    this.#movieComponent.setFavoriteClickHandler(this.#handleFavoriteClick);
+    this.#movieComponent.setWatchlistClickHandler(this.#handleWatchlistClick);
+    this.#movieComponent.setWatchedClickHandler(this.#handleWatchedClick); //
     this.#popup.setFavoriteClickHandler(this.#handleFavoriteClick); //
+    this.#popup.setWatchlistClickHandler(this.#handleWatchlistClick); //
+    this.#popup.setWatchedClickHandler(this.#handleWatchedClick); //
     this.#popup.setCloseClickHandler(this.#popupClose);
+
     if (prevMovieComponent === null || prevPopup === null) {
       render(this.#movieComponent, this.#movieListContainer);
       return;
     }
+    // Проверка на наличие в DOM необходима,
+    // чтобы не пытаться заменить то, что не было отрисовано
+    if (this.#movieListContainer.contains(prevMovieComponent.element)) {
+      replace(this.#movieComponent, prevMovieComponent);
+    }
+    if (document.contains(prevPopup.element)) {
+      replace(this.#popup, prevPopup);
+    }
+
     remove(prevMovieComponent);
     remove(prevPopup);
   };
@@ -40,16 +60,41 @@ export default class MoviePresenter {
   };
 
   #handleFavoriteClick = () => {
-    this.#changeData({...this.#movie, userDetails: {
-      watchlist: this.#movie.userDetails.watchlist,
-      alreadyWatched: this.#movie.userDetails.alreadyWatched,
-      watchingDate: this.#movie.userDetails.watchingDate,
-      favorite: !this.#movie.userDetails.favorite}
+    //!
+    this.#changeData({
+      ...this.#movie,
+      userDetails: {
+        ...this.#movie.userDetails,
+        favorite: !this.#movie.userDetails.favorite,
+      },
+    });
+  };
+
+  #handleWatchlistClick = () => {
+    this.#changeData({
+      ...this.#movie,
+      userDetails: {
+        ...this.#movie.userDetails,
+        watchlist: !this.#movie.userDetails.watchlist,
+      },
+    });
+  };
+
+  #handleWatchedClick = () => {
+    this.#changeData({
+      ...this.#movie,
+      userDetails: {
+        ...this.#movie.userDetails,
+        alreadyWatched: !this.#movie.userDetails.alreadyWatched,
+      },
     });
   };
 
   #popupOpen = () => {
     const siteFooterElement = document.querySelector('.footer');
+    if (document.querySelector('.film-details')) {
+      this.#popupClose();
+    }
     render(this.#popup, siteFooterElement, RenderPosition.AFTEREND);
     document.addEventListener('keydown', this.#onEscKeyDown);
   };
