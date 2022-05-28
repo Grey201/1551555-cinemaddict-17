@@ -1,4 +1,5 @@
 import { getRandomInteger } from '../utils/common.js';
+import {nanoid} from 'nanoid';
 
 const generateCommentId = () => {
   const commentsId = ['101', '102', '103', '104', '105'];
@@ -44,13 +45,6 @@ const generateDate = () => {
   const randomIndex = getRandomInteger(0, date.length - 1);
 
   return date[randomIndex];
-};
-
-const generateId = () => {
-  const id = ['001', '002', '003'];
-  const randomIndex = getRandomInteger(0, id.length - 1);
-
-  return id[randomIndex];
 };
 
 const generateTitle = () => {
@@ -169,7 +163,7 @@ export const generateComment = () => ({
 });
 
 export const generateMove = () => ({
-  id: generateId(),
+  id: nanoid(),
   comments: [generateCommentId(), generateCommentId()],
   filmInfo: {
     title: generateTitle(),

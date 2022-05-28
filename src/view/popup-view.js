@@ -190,4 +190,40 @@ export default class PopupView extends AbstractView {
     evt.preventDefault();
     this._callback.formSubmit();
   };
+
+  setFavoriteClickHandler = (callback) => {
+    this._callback.favoriteClick = callback;
+    this.element
+      .querySelector('.film-details__control-button--favorite')
+      .addEventListener('click', this.#favoriteClickHandler);
+  };
+
+  #favoriteClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.favoriteClick();
+  };
+
+  setWatchlistClickHandler = (callback) => {
+    this._callback.watchlistClick = callback;
+    this.element
+      .querySelector('.film-details__control-button--watchlist')
+      .addEventListener('click', this.#watchlistClickHandler);
+  };
+
+  #watchlistClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.watchlistClick();
+  };
+
+  setWatchedClickHandler = (callback) => {
+    this._callback.watchedClick = callback;
+    this.element
+      .querySelector('.film-details__control-button--watched')
+      .addEventListener('click', this.#watchedClickHandler);
+  };
+
+  #watchedClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.watchedClick();
+  };
 }
