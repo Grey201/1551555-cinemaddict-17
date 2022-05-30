@@ -1,4 +1,4 @@
-import AbstractView from '../framework/view/abstract-view.js';
+import AbstractStatefulView from '../framework/view/abstract-stateful-view.js'; 
 import {
   humanizeMovieDueDate,
   humanizeMovieDueDateTime,
@@ -165,18 +165,21 @@ const createPopupTemplate = (movie, commentsAll) => {
 </form>
 </section>`;
 };
-export default class PopupView extends AbstractView {
+export default class PopupView extends AbstractStatefulView {
   #movie = null;
   #comment = null;
 
   constructor(movie, comment) {
     super();
-    this.#movie = movie;
+    // this.#movie = movie;
     this.#comment = comment;
+    this._state=PopupView.parseMovieToState(movie);
+    this.#setInnerHandlers();
   }
 
   get template() {
-    return createPopupTemplate(this.#movie, this.#comment);
+    // return createPopupTemplate(this.#movie, this.#comment);
+    return createPopupTemplate(this._state, this.#comment);
   }
 
   setCloseClickHandler = (callback) => {
@@ -188,7 +191,38 @@ export default class PopupView extends AbstractView {
 
   #closeClickHandler = (evt) => {
     evt.preventDefault();
-    this._callback.formSubmit();
+    this._callback.formSubmit(PopupView.parseStateToMovie(this._state));
+  };
+
+  #commentInputHandler = (evt) => {
+    evt.preventDefault();
+    this._setState({
+      comments: evt.target.value,
+    });
+  };
+#saveCommented=(evt)=>{
+  evt.preventDefault();
+
+}
+  
+
+#setInnerHandlers = () => {
+this.element.querySelector('.film-details__comment-input')
+.addEventListener('input', this.#commentInputHandler);
+this.element.querySelector('.film-details__emoji-item')
+      .addEventListener('change', this.#saveCommented);
+};
+
+_restoreHandlers = () => {
+  this.#setInnerHandlers();
+  this.setCloseClickHandler(this._callback.formSubmit);
+};
+
+  static parseMovieToState = (movie) => ({...movie});
+
+  static parseStateToMovie = (state) => {
+    const movie = {...state};
+    return movie;
   };
 
   setFavoriteClickHandler = (callback) => {
