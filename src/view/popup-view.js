@@ -1,4 +1,4 @@
-import AbstractStatefulView from '../framework/view/abstract-stateful-view.js'; 
+import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 import {
   humanizeMovieDueDate,
   humanizeMovieDueDateTime,
@@ -132,7 +132,9 @@ const createPopupTemplate = (movie, commentsAll) => {
       </ul>
 
       <div class="film-details__new-comment">
-        <div class="film-details__add-emoji-label"></div>
+        <div class="film-details__add-emoji-label">
+
+        </div>
 
         <label class="film-details__comment-label">
           <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
@@ -165,22 +167,41 @@ const createPopupTemplate = (movie, commentsAll) => {
 </form>
 </section>`;
 };
+
 export default class PopupView extends AbstractStatefulView {
   #movie = null;
   #comment = null;
 
   constructor(movie, comment) {
     super();
-    // this.#movie = movie;
     this.#comment = comment;
     this._state=PopupView.parseMovieToState(movie);
     this.#setInnerHandlers();
   }
 
+  #addEmoji=(evt)=> {
+    const { value } = evt.target;
+    evt.preventDefault();
+    const listEmoji= document.querySelectorAll('.film-details__emoji-item');
+    listEmoji.forEach((emoji)=>emoji.removeAttribute('checked'));
+    evt.target.matches('.film-details__emoji-item');
+    document.querySelector('.film-details__add-emoji-label').innerHTML=`<img src="./images/emoji/${value}.png" width="50" height="50" alt="emoji">`;
+    evt.target.setAttribute('checked', true);
+    this._setState({
+      emotion: value,
+    });
+  };
+
   get template() {
     // return createPopupTemplate(this.#movie, this.#comment);
     return createPopupTemplate(this._state, this.#comment);
   }
+
+  reset = (movie) => {
+    this.updateElement(
+      PopupView.parseMovieToState(movie),
+    );
+  };
 
   setCloseClickHandler = (callback) => {
     this._callback.formSubmit = callback;
@@ -197,26 +218,25 @@ export default class PopupView extends AbstractStatefulView {
   #commentInputHandler = (evt) => {
     evt.preventDefault();
     this._setState({
-      comments: evt.target.value,
+      comment: evt.target.value,
     });
   };
-#saveCommented=(evt)=>{
-  evt.preventDefault();
 
-}
-  
+  #saveCommented=(evt)=>{
+    evt.preventDefault();
+  };
 
-#setInnerHandlers = () => {
-this.element.querySelector('.film-details__comment-input')
-.addEventListener('input', this.#commentInputHandler);
-this.element.querySelector('.film-details__emoji-item')
-      .addEventListener('change', this.#saveCommented);
-};
+  #setInnerHandlers = () => {
+    this.element.querySelector('.film-details__emoji-list')
+    .addEventListener('change', this.#addEmoji);
+    this.element.querySelector('.film-details__comment-input')
+    .addEventListener('input', this.#commentInputHandler); 
+  };
 
-_restoreHandlers = () => {
+  _restoreHandlers = () => {
   this.#setInnerHandlers();
   this.setCloseClickHandler(this._callback.formSubmit);
-};
+  };
 
   static parseMovieToState = (movie) => ({...movie});
 

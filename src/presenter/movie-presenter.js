@@ -100,6 +100,7 @@ export default class MoviePresenter {
 
   #popupClose = () => {
     document.querySelector('.film-details').remove(this.#popup);
+    this.#popup.reset(this.#movie);
     document.removeEventListener('keydown', this.#onEscKeyDown);
   };
 
@@ -108,6 +109,7 @@ export default class MoviePresenter {
       evt.preventDefault();
       document.querySelector('.film-details').remove();
       document.removeEventListener('keydown', this.#onEscKeyDown);
+      this.#popup.reset(this.#movie);
     }
   };
 }
