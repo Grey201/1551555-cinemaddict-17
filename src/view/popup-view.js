@@ -193,9 +193,23 @@ export default class PopupView extends AbstractStatefulView {
   };
 
   get template() {
-    // return createPopupTemplate(this.#movie, this.#comment);
     return createPopupTemplate(this._state, this.#comment);
   }
+
+  #setInnerHandlers = () => {
+    this.element.querySelector('.film-details__emoji-list')
+      .addEventListener('change', this.#addEmoji);
+    this.element.querySelector('.film-details__comment-input')
+      .addEventListener('input', this.#commentInputHandler);
+    this.setFavoriteClickHandler();
+    this.setWatchlistClickHandler();
+    this.setWatchedClickHandler();
+  };
+
+  _restoreHandlers = () => {
+    this.#setInnerHandlers();
+    this.setCloseClickHandler(this._callback.formSubmit);
+  };
 
   reset = (movie) => {
     this.updateElement(
@@ -226,18 +240,6 @@ export default class PopupView extends AbstractStatefulView {
     evt.preventDefault();
   };
 
-  #setInnerHandlers = () => {
-    this.element.querySelector('.film-details__emoji-list')
-    .addEventListener('change', this.#addEmoji);
-    this.element.querySelector('.film-details__comment-input')
-    .addEventListener('input', this.#commentInputHandler); 
-  };
-
-  _restoreHandlers = () => {
-  this.#setInnerHandlers();
-  this.setCloseClickHandler(this._callback.formSubmit);
-  };
-
   static parseMovieToState = (movie) => ({...movie});
 
   static parseStateToMovie = (state) => {
@@ -255,6 +257,13 @@ export default class PopupView extends AbstractStatefulView {
   #favoriteClickHandler = (evt) => {
     evt.preventDefault();
     this._callback.favoriteClick();
+    this.updateElement({
+      ...this._state,
+      ...this.state,
+      userDetails: {
+        ...this._state.userDetails,
+      },
+    });
   };
 
   setWatchlistClickHandler = (callback) => {

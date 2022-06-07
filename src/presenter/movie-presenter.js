@@ -7,6 +7,11 @@ import {
 import PopupView from '../view/popup-view.js';
 import FilmCardView from '../view/film-card-view.js';
 
+const Mode = {
+  CARD:'CARD',
+  POPUP:'POPUP',
+};
+
 export default class MoviePresenter {
   #movieListContainer = null;
   #movieComponent = null;
@@ -14,6 +19,7 @@ export default class MoviePresenter {
   #movie = null;
   #comment = [];
   #changeData = null;
+  #mode = Mode.CARD;
 
   constructor(movieListContainer, changeData) {
     this.#movieListContainer = movieListContainer;
@@ -41,12 +47,11 @@ export default class MoviePresenter {
       render(this.#movieComponent, this.#movieListContainer);
       return;
     }
-    // Проверка на наличие в DOM необходима,
-    // чтобы не пытаться заменить то, что не было отрисовано
-    if (this.#movieListContainer.contains(prevMovieComponent.element)) {
+
+    if (this.#mode === Mode.CARD) {
       replace(this.#movieComponent, prevMovieComponent);
     }
-    if (document.contains(prevPopup.element)) {
+    if (this.#mode === Mode.POPUP) {
       replace(this.#popup, prevPopup);
     }
 
@@ -99,7 +104,8 @@ export default class MoviePresenter {
   };
 
   #popupClose = () => {
-    document.querySelector('.film-details').remove(this.#popup);
+    // document.querySelector('.film-details').remove(this.#popup);
+    remove(this.#popup);
     this.#popup.reset(this.#movie);
     document.removeEventListener('keydown', this.#onEscKeyDown);
   };
@@ -107,7 +113,7 @@ export default class MoviePresenter {
   #onEscKeyDown = (evt) => {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
-      document.querySelector('.film-details').remove();
+      remove(this.#popup);
       document.removeEventListener('keydown', this.#onEscKeyDown);
       this.#popup.reset(this.#movie);
     }
