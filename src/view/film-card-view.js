@@ -34,6 +34,7 @@ const createFilmCardsTemplate = (movie) => {
       </article>
     `;
 };
+
 export default class FilmCardView extends AbstractView {
   #movie = null;
 
