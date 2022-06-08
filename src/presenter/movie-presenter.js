@@ -51,7 +51,8 @@ export default class MoviePresenter {
     if (this.#mode === Mode.CARD) {
       replace(this.#movieComponent, prevMovieComponent);
     }
-    if (this.#mode === Mode.POPUP) {
+
+    if (this.#mode === Mode.POPUP ||document.contains(prevPopup.element)) {
       replace(this.#popup, prevPopup);
     }
 
@@ -104,7 +105,6 @@ export default class MoviePresenter {
   };
 
   #popupClose = () => {
-    // document.querySelector('.film-details').remove(this.#popup);
     remove(this.#popup);
     this.#popup.reset(this.#movie);
     document.removeEventListener('keydown', this.#onEscKeyDown);
@@ -114,8 +114,8 @@ export default class MoviePresenter {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
       remove(this.#popup);
-      document.removeEventListener('keydown', this.#onEscKeyDown);
       this.#popup.reset(this.#movie);
+      document.removeEventListener('keydown', this.#onEscKeyDown);
     }
   };
 }
