@@ -7,7 +7,7 @@ import FilmsListContainerView from '../view/films-list-container-view.js';
 import FilmsListExtraTopView from '../view/films-list-extra-top-view.js';
 import FilmsListExtraMostCommentedView from '../view/films-list-extra-most-commented-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
-// import { updateItem } from '../utils/common.js';
+import { updateItem } from '../utils/common.js';
 import NoMovieView from '../view/no-movie-view.js';
 
 const EXTRA_CARDS_COUNT = 2;
