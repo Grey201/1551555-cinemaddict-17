@@ -12,6 +12,7 @@ import NoMovieView from '../view/no-movie-view.js';
 
 const EXTRA_CARDS_COUNT = 2;
 const MOVIE_COUNT_PER_STEP = 5;
+
 export default class BoardPresenter {
   #boardContainer = null;
   #moviesModel = null;
@@ -29,10 +30,16 @@ export default class BoardPresenter {
   #noMovieComponent = new NoMovieView();
   #renderedMovieCount = MOVIE_COUNT_PER_STEP;
   #moviePresenter = new Map();
+  #boardMovies=[];
+  #sourcedBoardMovies=[];
 
   constructor(boardContainer, moviesModel) {
     this.#boardContainer = boardContainer;
     this.#moviesModel = moviesModel;
+  }
+
+  get movies() {
+    return this.#moviesModel.movies;
   }
 
   init = () => {
