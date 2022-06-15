@@ -9,6 +9,8 @@ import FilmsListExtraMostCommentedView from '../view/films-list-extra-most-comme
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import { updateItem } from '../utils/common.js';
 import NoMovieView from '../view/no-movie-view.js';
+import {sortDate, sortRating} from '../utils/movie.js';
+import {SortType} from '../const.js';
 
 const EXTRA_CARDS_COUNT = 2;
 const MOVIE_COUNT_PER_STEP = 5;
@@ -30,8 +32,8 @@ export default class BoardPresenter {
   #noMovieComponent = new NoMovieView();
   #renderedMovieCount = MOVIE_COUNT_PER_STEP;
   #moviePresenter = new Map();
-  #boardMovies=[];
   #sourcedBoardMovies=[];
+  #currentSortType = SortType.DEFAULT;
 
   constructor(boardContainer, moviesModel) {
     this.#boardContainer = boardContainer;
@@ -45,7 +47,9 @@ export default class BoardPresenter {
   init = () => {
     this.#movies = [...this.#moviesModel.movies];
     this.#comments = [...this.#moviesModel.comments];
-
+// 1. В отличии от сортировки по любому параметру, исходный порядок можно сохранить только одним способом -
+    // сохранив исходный массив:
+    this.#sourcedBoardMovies = [...this.#moviesModel.movies];
     this.#renderBoard();
   };
 
@@ -67,9 +71,41 @@ export default class BoardPresenter {
 
   #handleMovieChange = (updatedMovie) => {
     this.#movies = updateItem(this.#movies, updatedMovie);
+    this.#sourcedBoardMovies = updateItem(this.#sourcedBoardMovies, updatedMovie);
     this.#moviePresenter
       .get(updatedMovie.id)
       .init(updatedMovie, this.#comments);
+  };
+  
+  #sortMovies = (sortType) => {
+    // 2. Этот исходный массив задач необходим, потому что для сортировки мы будем мутировать
+    // массив в свойстве _boardMovies
+    switch (sortType) {
+      case SortType.DATE:
+        this.#movies.sort(sortDate);
+        break;
+      case SortType.RATING:
+        this.#movies.sort(sortRating);
+        break;
+      default:
+        // 3. А когда пользователь захочет "вернуть всё, как было",
+        // мы просто запишем в _boardMovies исходный массив
+        this.#movies = [...this.#sourcedBoardMovies];
+    }
+
+    this.#currentSortType = sortType;
+  };
+
+  #handleSortTypeChange = (sortType) => {
+    // - Сортируем задачи
+    if (this.#currentSortType === sortType) {
+      return;
+    }
+    this.#sortMovies(sortType);
+    // - Очищаем список
+    this.#clearMovieList();
+    // - Рендерим список заново
+    this.#renderMovieList();
   };
 
   #renderMovie = (movie, container) => {
@@ -89,6 +125,7 @@ export default class BoardPresenter {
 
   #renderSort = () => {
     render(this.#sortComponent, this.#boardContainer);
+    this.#sortComponent.setSortTypeChangeHandler(this.#handleSortTypeChange);
   };
 
   #renderNoMovie = () => {
@@ -117,7 +154,7 @@ export default class BoardPresenter {
     this.#renderedMovieCount = MOVIE_COUNT_PER_STEP;
     remove(this.onLoadMoreButtonClick);
   };
-
+  
   #renderTopList = () => {
     render(this.#containerListExtraTop, this.#filmsContainer.element);
     render(this.#showMoreButtonComponent, this.#filmsList.element);
