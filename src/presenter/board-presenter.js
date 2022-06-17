@@ -47,7 +47,7 @@ export default class BoardPresenter {
   init = () => {
     this.#movies = [...this.#moviesModel.movies];
     this.#comments = [...this.#moviesModel.comments];
-// 1. В отличии от сортировки по любому параметру, исходный порядок можно сохранить только одним способом -
+    // 1. В отличии от сортировки по любому параметру, исходный порядок можно сохранить только одним способом -
     // сохранив исходный массив:
     this.#sourcedBoardMovies = [...this.#moviesModel.movies];
     this.#renderBoard();
@@ -63,7 +63,6 @@ export default class BoardPresenter {
         this.#renderMovie(movie, this.#filmsListContainer.element)
       );
     this.#renderedMovieCount += MOVIE_COUNT_PER_STEP;
-
     if (this.#renderedMovieCount >= this.#movies.length) {
       remove(this.#showMoreButtonComponent);
     }
@@ -76,10 +75,10 @@ export default class BoardPresenter {
       .get(updatedMovie.id)
       .init(updatedMovie, this.#comments);
   };
-  
+
   #sortMovies = (sortType) => {
     // 2. Этот исходный массив задач необходим, потому что для сортировки мы будем мутировать
-    // массив в свойстве _boardMovies
+    // массив в свойстве movies
     switch (sortType) {
       case SortType.DATE:
         this.#movies.sort(sortDate);
@@ -88,8 +87,7 @@ export default class BoardPresenter {
         this.#movies.sort(sortRating);
         break;
       default:
-        // 3. А когда пользователь захочет "вернуть всё, как было",
-        // мы просто запишем в _boardMovies исходный массив
+        // 3. А когда пользователь захочет "вернуть всё, как было",мы просто запишем в movies исходный массив
         this.#movies = [...this.#sourcedBoardMovies];
     }
 
@@ -106,6 +104,7 @@ export default class BoardPresenter {
     this.#clearMovieList();
     // - Рендерим список заново
     this.#renderMovieList();
+    // this.#renderExtraMostList();
   };
 
   #renderMovie = (movie, container) => {
@@ -121,6 +120,8 @@ export default class BoardPresenter {
     this.#movies
       .slice(from, to)
       .forEach((movie) => this.#renderMovie(movie, container));
+      // console.log(this.#movies
+      //   .slice(from, to));
   };
 
   #renderSort = () => {
@@ -134,8 +135,9 @@ export default class BoardPresenter {
 
   #renderMovieList = () => {
     render(this.#filmsContainer, this.#boardContainer);
-    render(this.#filmsList, this.#filmsContainer.element);
+    render(this.#filmsList, this.#filmsContainer.element, RenderPosition.AFTERBEGIN);
     render(this.#filmsListContainer, this.#filmsList.element);
+    render(this.#showMoreButtonComponent, this.#filmsList.element);
     const minValue = Math.min(this.#movies.length, MOVIE_COUNT_PER_STEP);
     if (this.#movies.length <= this.#renderedMovieCount) {
       this.#renderMovies(0, minValue, this.#filmsListContainer.element);
@@ -151,13 +153,13 @@ export default class BoardPresenter {
   #clearMovieList = () => {
     this.#moviePresenter.forEach((presenter) => presenter.destroy());
     this.#moviePresenter.clear();
+    console.log(this.#moviePresenter)
     this.#renderedMovieCount = MOVIE_COUNT_PER_STEP;
-    remove(this.onLoadMoreButtonClick);
+    // remove(this.#onLoadMoreButtonClick);
   };
-  
+
   #renderTopList = () => {
     render(this.#containerListExtraTop, this.#filmsContainer.element);
-    render(this.#showMoreButtonComponent, this.#filmsList.element);
     render(
       this.#filmsListContainerTop,
       this.#containerListExtraTop.element,
