@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import {SortType} from '../const.js';
+import { SortType } from '../const.js';
 
 const createSortTemplate = () =>
   `<ul class="sort">
@@ -15,16 +15,13 @@ export default class SortView extends AbstractView {
   setSortTypeChangeHandler = (callback) => {
     this._callback.sortTypeChange = callback;
     this.element.addEventListener('click', this.#sortTypeChangeHandler);
-    
   };
 
   #sortTypeChangeHandler = (evt) => {
     if (evt.target.tagName !== 'A') {
       return;
     }
-// console.log('click');
     evt.preventDefault();
     this._callback.sortTypeChange(evt.target.dataset.sortType);
   };
 }
-
