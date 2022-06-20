@@ -82,7 +82,8 @@ export default class BoardPresenter {
   #sortMovies = (sortType) => {
     // 2. Этот исходный массив задач необходим, потому что для сортировки мы будем мутировать
     // массив в свойстве movies
-    switch (sortType) {
+    this.#currentSortType = sortType;
+    switch (this.#currentSortType) {
       case SortType.DATE:
         this.#movies.sort(sortDate);
         break;
@@ -93,7 +94,6 @@ export default class BoardPresenter {
         // 3. А когда пользователь захочет "вернуть всё, как было",мы просто запишем в movies исходный массив
         this.#movies = [...this.#sourcedBoardMovies];
     }
-    this.#currentSortType = sortType;
   };
 
   #handleSortTypeChange = (sortType) => {
