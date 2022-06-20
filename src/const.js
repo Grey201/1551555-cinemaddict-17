@@ -4,4 +4,10 @@ const FilterType = {
   FAVORITES: 'Favorites',
 };
 
-export { FilterType };
+const SortType = {
+  DEFAULT: 'default',
+  DATE: 'date',
+  RATING: 'rating',
+};
+
+export { FilterType, SortType };

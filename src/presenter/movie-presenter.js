@@ -8,8 +8,8 @@ import PopupView from '../view/popup-view.js';
 import FilmCardView from '../view/film-card-view.js';
 
 const Mode = {
-  CARD:'CARD',
-  POPUP:'POPUP',
+  CARD: 'CARD',
+  POPUP: 'POPUP',
 };
 
 export default class MoviePresenter {
@@ -52,7 +52,7 @@ export default class MoviePresenter {
       replace(this.#movieComponent, prevMovieComponent);
     }
 
-    if (this.#mode === Mode.POPUP ||document.contains(prevPopup.element)) {
+    if (this.#mode === Mode.POPUP || document.contains(prevPopup.element)) {
       replace(this.#popup, prevPopup);
     }
 
